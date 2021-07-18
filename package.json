@@ -1,0 +1,18 @@
+{
+  "name": "tsukaribot",
+  "version": "1.0.0",
+  "description": "Tsukari Discord Bot, General Purposes Bot. Created Using Discord.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MoonL",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "discord.js": "^13.0.0-dev.a08ce7d.1625097834",
+    "dotenv": "^10.0.0",
+    "mongoose": "^5.13.0",
+    "ytdl-core": "^4.8.3"
+  }
+}

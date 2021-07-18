@@ -1,0 +1,16 @@
+guildOnly = To make command guild guildOnly
+Alias = array of aliases(this will make 1 more parameter as "alias that used"in the execute params)
+ownerOnly = Only Bot Owner who can use it
+
+
+
+Required things to export
+Name (must be the file name without .js)
+Usage
+Description
+Execute
+
+Execute Template 
+    "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
+With Alias 
+    "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string,alias:string){
