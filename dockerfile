@@ -11,3 +11,5 @@ COPY . .
 ARG EnvironmentVariable
 
 CMD ["ts-node", "index.js"]
+
+ENTRYPOINT /app/
