@@ -8,4 +8,6 @@ RUN npm install
 
 COPY . .
 
+ARG EnvironmentVariable
+
 CMD ["ts-node", "index.js"]
