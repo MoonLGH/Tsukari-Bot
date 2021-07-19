@@ -17,7 +17,7 @@ Move to How To Run section
 ## How To Run
 |Run Bot Normally|Run As Dev|
 |--|--|
-|Runs Normal| Run As Dev With Nodemon |
+|[Runs Normal](https://github.com/MoonLGH/Tsukari-Bot/blob/main/README.md#run-normal)| [Run As Dev With Nodemon](https://github.com/MoonLGH/Tsukari-Bot/blob/main/README.md#runs-as-dev-with-nodemon) |
 
 ## Run Normal
 
