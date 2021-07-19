@@ -24,7 +24,7 @@ Move to How To Run section
  1. create .env file on the main project folder like .env [Example](https://github.com/MoonLGH/Tsukari-Bot/blob/main/examples/.env.example)
  2. Fill default.js on src folder with [something like this](https://github.com/MoonLGH/Tsukari-Bot/blob/main/examples/default.js)
  3. type `npm run start` in Terminal/CLI
- 4. 
+
 ## Runs As Dev With Nodemon
  1. create .env file on the main project folder like .env [Example](https://github.com/MoonLGH/Tsukari-Bot/blob/main/examples/.dev.env.example)
  2. Fill default.js on src folder with [something like this](https://github.com/MoonLGH/Tsukari-Bot/blob/main/examples/default.js)
