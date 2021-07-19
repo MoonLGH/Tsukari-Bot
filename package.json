@@ -13,6 +13,7 @@
     "discord.js": "^13.0.0-dev.a08ce7d.1625097834",
     "dotenv": "^10.0.0",
     "mongoose": "^5.13.0",
+    "ts-node": "^10.1.0",
     "ytdl-core": "^4.8.3"
   }
 }
