@@ -3,6 +3,17 @@ Alias = array of aliases(this will make 1 more parameter as "alias that used"in 
 ownerOnly = Only Bot Owner who can use it
 
 
+Required for Slash 
+Name (must be the file name without .js)
+Usage
+Description
+interaction
+
+Slash Only Optional
+options
+
+
+Else
 
 Required things to export
 Name (must be the file name without .js)
@@ -14,3 +25,5 @@ Execute Template
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
 With Alias 
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string,alias:string){
+Slash Interaction
+    interaction: async function (interaction, client) {

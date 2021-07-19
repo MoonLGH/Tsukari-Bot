@@ -4,10 +4,9 @@ const config = require("./default.js")
 
 // Making the Bot Variable
 const D = require("discord.js")
-const client = new D.Client({intents: D.Intents.ALL})
+const client = new D.Client({intents: config.intents})
 
 //Renewing Console.log So It would also log into an channel
-
 client.on('ready', async () => {
     const oldLog = console.log;
     console.log = m => {
@@ -16,8 +15,8 @@ client.on('ready', async () => {
     }
 })
 
-function logToDiscord(m:any){
-    client.channels.cache.get(config.botconsole).send(`Console Log: ${m}`)
+async function logToDiscord(m:any){
+    client.channels.cache.get(config.botconsole)?.send(`Console Log: ${m}`)
 }
 
 // Bot Listener
@@ -25,7 +24,7 @@ function logToDiscord(m:any){
 client.on("ready",async()=>{
     require("./util/ready.ts").ready(client)
 })
-client.on("message",async(msg:any)=>{
+client.on("messageCreate",async(msg:any)=>{
     let prefix:any = undefined
     if(msg.channel.id === config.botconsole) return /* returning all console channel message, cause in the development time it's so annoying */
     if(process.env.TESTPREFIX){

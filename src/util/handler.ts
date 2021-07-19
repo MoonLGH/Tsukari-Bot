@@ -17,6 +17,7 @@ export async function handler(msg: Message, command: String, args: Array < any >
     }
     if(getcmd){
         if(getcmd.folder === "owner") return null /* Owner Preventer */
+        if(getcmd.folder === "slash") return null /* Slash Preventer */
         if(getcmd.alias){
          return require(`../commands/${getcmd.folder}/${getcmd.file}`).execute(msg,command,args,prefix,getcmd.alias)
         }
