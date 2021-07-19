@@ -1,5 +1,5 @@
 // Process Enviroment detector
-require("dotenv").config()
+require("dotenv").config("../")
 const config = require("./default.js")
 
 // Making the Bot Variable
@@ -26,8 +26,8 @@ client.on("ready",async()=>{
     require("./util/ready.ts").ready(client)
 })
 client.on("message",async(msg:any)=>{
-    let prefix:any
-    // if(msg.channel.id === config.botconsole) return
+    let prefix:any = undefined
+    if(msg.channel.id === config.botconsole) return /* returning all console channel message, cause in the development time it's so annoying */
     if(process.env.TESTPREFIX){
         if(msg.content.toLowerCase().startsWith(process.env.TESTPREFIX.toLowerCase())){
         prefix = process.env.TESTPREFIX

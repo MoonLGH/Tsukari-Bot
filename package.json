@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node index.ts"
+    "dev": "nodemon",
+    "start": "ts-node index.ts",
+    "withpm2": "pm2 start src/index.ts --name tsukaribot"
   },
   "author": "MoonL",
   "license": "ISC",
@@ -14,7 +16,13 @@
     "discord.js": "^13.0.0-dev.a08ce7d.1625097834",
     "dotenv": "^10.0.0",
     "mongoose": "^5.13.0",
-    "ts-node": "^10.1.0",
     "ytdl-core": "^4.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^16.3.3",
+    "nodemon": "^2.0.12",
+    "pm2": "^5.1.0",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
   }
 }
