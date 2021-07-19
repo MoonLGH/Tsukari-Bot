@@ -17,7 +17,6 @@ export async function handler(msg: Message, command: String, args: Array < any >
     }
     if(getcmd){
         if(getcmd.folder === "owner") return null /* Owner Preventer */
-        if(getcmd.folder === "slash") return null /* Slash Preventer */
         if(getcmd.alias){
          return require(`../commands/${getcmd.folder}/${getcmd.file}`).execute(msg,command,args,prefix,getcmd.alias)
         }
@@ -26,10 +25,11 @@ export async function handler(msg: Message, command: String, args: Array < any >
 }
 
 function getCommand(command:any) {
-    const commandFiles = fs.readdirSync('./commands',{ withFileTypes: true }).filter((dirent:any) => dirent.isDirectory()).map((dirent:any) => dirent.name)
+    const commandFiles = fs.readdirSync('./src/commands',{ withFileTypes: true }).filter((dirent:any) => dirent.isDirectory()).map((dirent:any) => dirent.name)
 
     for (const folder of commandFiles) {
-        for (const file of fs.readdirSync('./commands/'+folder).filter((file:any) => file.endsWith('.ts'))){
+        if(folder === "slash") return null /* Slash Preventer */
+        for (const file of fs.readdirSync('./src/commands/'+folder).filter((file:any) => file.endsWith('.ts'))){
             const cmd = require(`../commands/${folder}/${file}`)
             if(cmd.alias){
                 const check:any = CheckForAlias(command,cmd)
@@ -47,7 +47,7 @@ function getCommand(command:any) {
 }
 function getOwnerCommand(command:any) {
     let folder = "owner"
-    for (const file of fs.readdirSync('./commands/'+folder).filter((file:any) => file.endsWith('.ts'))){
+    for (const file of fs.readdirSync('./src/commands/'+folder).filter((file:any) => file.endsWith('.ts'))){
         const cmd = require(`../commands/${folder}/${file}`)
         if(cmd.alias){
             const check:any = CheckForAlias(command,cmd)

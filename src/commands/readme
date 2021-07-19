@@ -11,7 +11,7 @@ interaction
 
 Slash Only Optional
 options
-
+devonly /* Only developer server that got this */
 
 Else
 

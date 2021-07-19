@@ -1,21 +1,29 @@
-import { Message } from "discord.js"
+import { Interaction, Message } from "discord.js"
 const D = require("discord.js")
 const { inspect } = require('util');
 const text = require('../../util/string.js');
+const config = require('../../default.js');
 const fetch = require('node-fetch');
 module.exports = {
-    "name":"eval",
-    "usage":`${require("../../default").defaultprefix}owner eval \`\`\`\ Codeblock Of Code\`\`\` `,
-    "description":"Eval A Code",
-    "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
+    name: "eval",
+    description: "Bot Owner Only <Owner>, Eval A Code",
+    options: [{
+        "name": "code",
+        "type": "STRING",
+        "required": true,
+        "description": "Code To Run"
+    }],
+    interaction: async function (interaction:any) {
+        let code:any = interaction.options.get("code")?.value
+        if(interaction.user.id !== config.ownerid) return interaction.reply("You are not the bot owner, You cant run this")
+        const interactiontime:any = Date.now()
         try {
-            const matches:any = msg.content.match(/```(?:(?<lang>\S+)\n)?\s?(?<code>[^]+?)\s?```/)?.groups || msg.content.match(/```(?<code>[^]+?)\s?```/)?.groups
-            let evaled = eval(matches.code);
+            let evaled = eval(code);
             let raw = evaled;
             let promise:any, output:any, bin:any, download:any, type:any, color:any;
       
             if (evaled instanceof Promise){
-              msg.channel.sendTyping();
+              interaction.channel.sendTyping();
               promise = await evaled
               .then(res => { return { resolved: true, body: inspect(res, { depth: 0 })};})
               .catch(err => { return { rejected: true, body: inspect(err, { depth: 0 })};});
@@ -42,14 +50,14 @@ module.exports = {
               type = (typeof raw).charAt(0).toUpperCase() + (typeof raw).slice(1)
             };
       
-            const elapsed = Math.abs(Date.now() - msg.createdTimestamp);
+            const elapsed = Math.abs(Date.now() - interactiontime);
             const embed = new D.MessageEmbed()
             .setColor(color)
-            .addField('\\📥 Input',`\`\`\`js\n${text.truncate(text.clean(matches.code),1000).replaceAll("```","")}\`\`\``)
+            .addField('\\📥 Input',`\`\`\`js\n${text.truncate(text.clean(code),1000).replaceAll("```","")}\`\`\``)
             .setFooter([
               `Type: ${type}`,
               `Evaluated in ${elapsed}ms.`,
-              `Eval | \©️${new Date().getFullYear()} ${msg.guild?.me?.displayName || msg.client.user?.username }`].join('\u2000•\u2000')
+              `Eval | \©️${new Date().getFullYear()} ${interaction.guild?.me?.displayName || interaction.client.user?.username }`].join('\u2000•\u2000')
             );
       
             if (output.length > 1000){
@@ -74,7 +82,7 @@ module.exports = {
               { name: '\u200b', value: `[\`📄 View\`](${bin}) • [\`📩 Download\`](${download})` }
             ].splice(0, Number(output.length > 1000) + 1))
     
-            return msg.channel.send({embeds:[embed]});
+            return interaction.reply({embeds:[embed]});
         } catch (err) {
           const stacktrace = text.joinArrayAndLimit(err.stack.split('\n'),900,'\n');
           const value = [
@@ -87,13 +95,13 @@ module.exports = {
             .setColor('RED')
             .setFooter([
               `${err.name}`,
-              `Evaluated in ${Math.abs(Date.now() - msg.createdTimestamp)}ms.`,
-              `Eval | \©️${new Date().getFullYear()} ${msg.guild?.me?.displayName || msg.client.user?.username}`].join('\u2000•\u2000'))
+              `Evaluated in ${Math.abs(Date.now() - interactiontime)}ms.`,
+              `Eval | \©️${new Date().getFullYear()} ${interaction.guild?.me?.displayName || interaction.client.user?.username}`].join('\u2000•\u2000'))
             .addFields([
-              { name: '\\📥 Input', value: `\`\`\`js\n${text.truncate(text.clean(args.join(' ')),1000,'\n...').replaceAll("```","")}\`\`\``  },
+              { name: '\\📥 Input', value: `\`\`\`js\n${text.truncate(text.clean(code),1000,'\n...').replaceAll("```","")}\`\`\``  },
               { name: '\\📤 Output', value }
             ])
-          return msg.channel.send({embeds:[embed]})
+          return interaction.reply({embeds:[embed]})
         }
     }
 }

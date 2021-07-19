@@ -21,7 +21,7 @@ module.exports = {
             return interaction.channel?.send("Mention An User")
         }
         const enemy = await interaction.guild?.members.fetch(enemyid)
-        const confirmation = new MessageActionRow().addComponents([new MessageButton().setCustomID(`yes`).setLabel("Accept").setStyle("SUCCESS"), new MessageButton().setCustomID(`no`).setLabel("Decline").setStyle("DANGER")])
+        const confirmation = new MessageActionRow().addComponents([new MessageButton().setCustomId(`yes`).setLabel("Accept").setStyle("SUCCESS"), new MessageButton().setCustomId(`no`).setLabel("Decline").setStyle("DANGER")])
         await interaction.reply({
             content: `<@!${enemyid}> ${interaction.member?.displayName} Has challanged You to play tictactoe\n you got 15 second to reply`,
             components: [confirmation]
@@ -43,7 +43,7 @@ module.exports = {
         })
 
         const filterno = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === enemyid;
-        const collectorno = confirm.createMessageComponentInteractionCollector({
+        const collectorno = confirm.createMessageComponentCollector({
             filter: filterno,
             time: 15000
         });
@@ -60,39 +60,39 @@ module.exports = {
 async function start(inter:ButtonInteraction, interaction:any, confirm:any, enemy:any) {
     const squares = [{
         val: false,
-        but: new MessageButton().setCustomID('1').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('1').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('2').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('2').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('3').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('3').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('4').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('4').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('5').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('5').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('6').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('6').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('7').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('7').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('8').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('8').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }, {
         val: false,
-        but: new MessageButton().setCustomID('9').setLabel('.').setStyle('PRIMARY'),
+        but: new MessageButton().setCustomId('9').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }]
     let row = new MessageActionRow()
@@ -120,7 +120,7 @@ async function start(inter:ButtonInteraction, interaction:any, confirm:any, enem
     });
     let game:any = await interaction.fetchReply()
     const filter = (interaction:ButtonInteraction) => interaction.user.id === random;
-    const collector = game.createMessageComponentInteractionCollector({
+    const collector = game.createMessageComponentCollector({
         filter: filter,
         time: 15000
     });
@@ -156,13 +156,12 @@ async function next(interaction:any, inter:ButtonInteraction, now:string, square
     }else if(player[now] === player.o){
         now = "x"
     }
-        console.log(player[now])
     await interaction.editReply({
         content: `Next Move <@${curret}> Play As ${now}`,
         components: [row, row1, row2]
     })
     const filter = (interaction:ButtonInteraction) => interaction.user.id === curret;
-    const collector = game.createMessageComponentInteractionCollector({
+    const collector = game.createMessageComponentCollector({
         filter: filter,
         time: 15000
     });
@@ -184,10 +183,6 @@ async function next(interaction:any, inter:ButtonInteraction, now:string, square
         }
         next(interaction, inter, now, squares, users, player,game)
     })
-}
-
-function getKeyByValue(object:any, value:any){
-  return Object.keys(object).find((key:any) => object[key] === value);
 }
 
 function getfirst(users:Array<any>):string {

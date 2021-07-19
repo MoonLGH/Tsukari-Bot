@@ -5,10 +5,11 @@ require("dotenv").config("../../")
 const fs = require("fs")
 
 export async function add(client: Client) {
-    const commandFiles = fs.readdirSync('./commands/slash/').filter((file: any) => file.endsWith('.ts'));
+    await console.log("Loading Slash Commands")
+    const commandFiles = fs.readdirSync('./src/commands/slash/').filter((file: any) => file.endsWith('.ts'));
     for (const file of commandFiles) {
         const command = require(`../commands/slash/${file}`);
-        console.log(`Loading ${file}`)
+        await console.log(`Slash Loading: ${file}`)
         if (process.env ?.devbot) {
             await client.guilds.cache.get("860163849479389184") ?.commands.create({
                 name: command.name,
@@ -23,6 +24,7 @@ export async function add(client: Client) {
             });
         }
     }
+    await console.log("Loaded All Slash Commands")
 	createinteractionevent(client)
 }
 
@@ -45,7 +47,7 @@ async function createinteractionevent(client:Client) {
 }
 
 function searchcommand(interaction:CommandInteraction) {
-	const commandFiles = fs.readdirSync('../commands/slash').filter((file:any) => file.endsWith('.ts'));
+	const commandFiles = fs.readdirSync('./src/commands/slash').filter((file:any) => file.endsWith('.ts'));
 
 	for (const file of commandFiles) {
 		const command = require(`../commands/slash/${file}`);
@@ -58,7 +60,7 @@ function searchcommand(interaction:CommandInteraction) {
 
 
 function searchbutton(interaction:ButtonInteraction) {
-	const commandFiles = fs.readdirSync('../commands/slash').filter((file:any) => file.endsWith('.ts'));
+	const commandFiles = fs.readdirSync('./src/commands/slash').filter((file:any) => file.endsWith('.ts'));
 
 	for (const file of commandFiles) {
 		const command = require(`../commands/slash/${file}`);
@@ -71,4 +73,9 @@ function searchbutton(interaction:ButtonInteraction) {
 
 	}
 	return false
+}
+
+export async function messageifyInteraction(interaction:any){
+
+	interaction.author = interaction.user
 }
