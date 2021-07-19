@@ -4,7 +4,8 @@
   "description": "Tsukari Discord Bot, General Purposes Bot. Created Using Discord.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node index.js"
   },
   "author": "MoonL",
   "license": "ISC",
