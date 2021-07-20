@@ -1,7 +1,8 @@
 import { Client } from 'discord.js'
 const config = require("../default.js")
+const { PlayTogether } = require("@miudiscord/together")
 const slash = require("./slash.ts")
-exports.ready = async (client:Client)=>{
+exports.ready = async (client:any)=>{
     await console.log("==========")
     await console.log("Ready Event")
     console.log(`${client.user?.tag} Ready.`)
@@ -9,6 +10,8 @@ exports.ready = async (client:Client)=>{
     await SetActivity(client)
     // Adding slash Command
     await slash.add(client)
+    await console.log("Renewing Client to load Youtube Together")
+    client.together = new PlayTogether(client)
     await console.log("End of Ready Event")
     await console.log("==========")
 }

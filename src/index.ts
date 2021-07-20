@@ -1,7 +1,6 @@
 // Process Enviroment detector
 require("dotenv").config("../")
 const config = require("./default.js")
-
 // Making the Bot Variable
 const D = require("discord.js")
 const client = new D.Client({intents: config.intents})
