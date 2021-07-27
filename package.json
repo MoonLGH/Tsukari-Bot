@@ -16,10 +16,12 @@
     "discord.js": "^13.0.0-dev.77784ac.1626696170",
     "dotenv": "^10.0.0",
     "mongoose": "^5.13.0",
+    "node-fetch": "^2.6.1",
     "ytdl-core": "^4.8.3"
   },
   "devDependencies": {
     "@types/node": "^16.3.3",
+    "@types/node-fetch": "^2.5.11",
     "nodemon": "^2.0.12",
     "pm2": "^5.1.0",
     "ts-node": "^10.1.0",

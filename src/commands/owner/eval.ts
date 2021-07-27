@@ -1,6 +1,7 @@
 import { Message } from "discord.js"
 const D = require("discord.js")
 const { inspect } = require('util');
+import * as ts from "typescript"
 const text = require('../../util/string.js');
 const fetch = require('node-fetch');
 module.exports = {
@@ -10,7 +11,11 @@ module.exports = {
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
         try {
             const matches:any = msg.content.match(/```(?:(?<lang>\S+)\n)?\s?(?<code>[^]+?)\s?```/)?.groups || msg.content.match(/```(?<code>[^]+?)\s?```/)?.groups
-            let evaled = eval(matches.code);
+            let coded = matches.code
+            if(matches.lang && matches.lang.toLowerCase() === "ts"){
+              coded = ts.transpile(matches.code)
+            }
+            let evaled = eval(coded);
             let raw = evaled;
             let promise:any, output:any, bin:any, download:any, type:any, color:any;
       
