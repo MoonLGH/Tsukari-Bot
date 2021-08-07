@@ -3,54 +3,53 @@ const {
     MessageButton
 } = require('discord.js');
 
-import { CommandInteraction,ButtonInteraction } from 'discord.js'
+import { CommandInteraction,ButtonInteraction, GuildMember, Message } from 'discord.js'
 module.exports = {
     name: "tictactoe",
     description: "Play Tic tac Toe Here :D",
     options: [{
         "name": "enemy",
-        "type": "STRING",
+        "type": "USER",
         "required": true,
         "description": "Mention User that you want to challange"
     }],
-    interaction: async function (interaction:any) {
-        let enemyid:any = interaction.options.get("enemy")?.value
-        if(enemyid.startsWith("<@!") ||enemyid.startsWith("<@") ){
-            enemyid = enemyid.replace("<@", "").replace("!","").replace(">", "")
-        }else {
-            return interaction.channel?.send("Mention An User")
+    interaction: async function (interaction:CommandInteraction) {
+        const enemy = await interaction.options.get("enemy")?.member
+        if((enemy as GuildMember).id === interaction.user.id){
+            return interaction.reply({content:"You Cant Challange Your Self",ephemeral:true})
+        }else if((enemy as GuildMember).user.bot){
+            return interaction.reply({content:"You Cant Challange A Bot",ephemeral:true})
         }
-        const enemy = await interaction.guild?.members.fetch(enemyid)
         const confirmation = new MessageActionRow().addComponents([new MessageButton().setCustomId(`yes`).setLabel("Accept").setStyle("SUCCESS"), new MessageButton().setCustomId(`no`).setLabel("Decline").setStyle("DANGER")])
         await interaction.reply({
-            content: `<@!${enemyid}> ${interaction.member?.displayName} Has challanged You to play tictactoe\n you got 15 second to reply`,
+            content: `<@!${(enemy as GuildMember)?.id}> ${(interaction.member as GuildMember)?.displayName} Has challanged You to play tictactoe\n you got 15 second to reply`,
             components: [confirmation]
         })
-
+        
         const confirm = await interaction.fetchReply()
-        const filteryes = (interaction:ButtonInteraction) => interaction.customId === 'yes' && interaction.user.id === enemyid;
-        const collectoryes = confirm.createMessageComponentCollector({
+        const filteryes = (interaction:ButtonInteraction) => interaction.customId === 'yes' && interaction.user.id === (enemy as GuildMember).id;
+        const collectoryes = (confirm as Message).createMessageComponentCollector({
             filter: filteryes,
             time: 15000
         });
         collectoryes.on("collect", async (inter:any) => {
             await inter.deferUpdate()
             await interaction.editReply({
-                content: `${enemy.displayName} Has Accepted, Lets Play The Game!`,
+                content: `${(enemy as GuildMember).displayName} Has Accepted, Lets Play The Game!`,
                 components: []
             })
             start(inter, interaction, confirm, enemy)
         })
 
-        const filterno = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === enemyid;
-        const collectorno = confirm.createMessageComponentCollector({
+        const filterno = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === (enemy as GuildMember).id;
+        const collectorno = (confirm as Message).createMessageComponentCollector({
             filter: filterno,
             time: 15000
         });
         collectorno.on("collect", async (inter:any) => {
             await inter.deferUpdate()
             await interaction.editReply({
-                content: `${enemy.displayName} Has Declined.`,
+                content: `${(enemy as GuildMember)?.displayName} Has Declined.`,
                 components: []
             })
         })

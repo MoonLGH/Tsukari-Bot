@@ -1,3 +1,4 @@
+import {CommandInteraction} from "discord.js"
 module.exports = {
     name: "say",
     description: "Make Me Say Something :D",
@@ -7,8 +8,8 @@ module.exports = {
         "required": true,
         "description": "What Do You Want To Echo"
     }],
-    interaction: async function (interaction:any) {
-        let Say:any = interaction.options.get("tosay")?.value
-        interaction.reply(Say)
+    interaction: async function (interaction:CommandInteraction) {
+        let toreply = interaction.options.getString("tosay",true)
+        interaction.reply(toreply)
     }
 }

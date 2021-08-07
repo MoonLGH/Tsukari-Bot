@@ -2,7 +2,7 @@ import { Message } from "discord.js"
 const D = require("discord.js")
 const { inspect } = require('util');
 import * as ts from "typescript"
-const text = require('../../util/string.js');
+const text = require('../../util/others/string.js');
 const fetch = require('node-fetch');
 module.exports = {
     "name":"eval",

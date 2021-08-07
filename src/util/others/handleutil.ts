@@ -1,14 +1,14 @@
 const fs = require("fs")
 import {
-    Message
+    Message,CommandInteraction
 } from "discord.js"
 
 let Vars = {
-    nofolder:["slash","owner","anime"],
-    forwardable:["owner","anime"]
+    nofolder: ["slash", "owner", "anime"],
+    forwardable: ["owner", "anime"]
 }
 
-async function handleCommand(command: any, folder?: String) {
+async function handleCommand(command: any, folder? : String) {
     let cmd
     if (folder) {
         cmd = await handleFiles(command, folder)
@@ -23,7 +23,7 @@ async function handleFolder(command: any) {
         withFileTypes: true
     }).filter((dirent: any) => dirent.isDirectory()).map((dirent: any) => dirent.name)
     for (const folder of commandFiles) {
-        if(!search(folder,Vars.nofolder)){
+        if (!search(folder, Vars.nofolder)) {
             let cmd = await handleFiles(command, folder)
 
             if (cmd) {
@@ -35,7 +35,7 @@ async function handleFolder(command: any) {
 
 function handleFiles(command: any, folder: any) {
     for (const file of fs.readdirSync('./src/commands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
-        const cmd = require(`../commands/${folder}/${file}`)
+        const cmd = require(`../../commands/${folder}/${file}`)
         if (cmd.alias) {
             const check: any = CheckForAlias(command, cmd)
             if (check) {
@@ -69,7 +69,7 @@ function CheckForAlias(command: string, cmd: any) {
     return alias
 }
 
-function search(item:String, arr:Array<String>) {
+function search(item: String, arr: Array < String > ) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] === item) {
             return true;
@@ -78,4 +78,31 @@ function search(item:String, arr:Array<String>) {
     return null;
 }
 
-export { search,handleCommand,Vars }
+function handleEvents() {
+    for (const file of fs.readdirSync('./src/events/').filter((file: any) => file.endsWith('.ts'))) {
+
+    }
+    return null
+}
+
+function searchcommand(interaction: CommandInteraction) {
+    const commandFiles = fs
+        .readdirSync("./src/slash")
+        .filter((file: any) => file.endsWith(".ts"));
+
+    for (const file of commandFiles) {
+        const command = require(`../../slash/${file}`);
+        if (command.name === interaction.commandName) {
+            return command;
+        }
+    }
+    return false;
+}
+
+export {
+    search,
+    handleCommand,
+    Vars,
+    handleEvents,
+    searchcommand
+}
