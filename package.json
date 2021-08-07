@@ -1,6 +1,6 @@
 {
   "name": "tsukaribot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Tsukari Discord Bot, General Purposes Bot. Created Using Discord.js",
   "main": "index.js",
   "scripts": {
