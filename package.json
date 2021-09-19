@@ -13,7 +13,7 @@
   "dependencies": {
     "@miudiscord/together": "^1.0.3",
     "chalk": "^4.1.1",
-    "discord.js": "^13.0.0-dev.77784ac.1626696170",
+    "discord.js": "^13.2.0-dev.1632009913.92f6471",
     "dotenv": "^10.0.0",
     "mongoose": "^5.13.0",
     "node-fetch": "^2.6.1",

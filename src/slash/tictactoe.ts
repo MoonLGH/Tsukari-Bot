@@ -27,7 +27,7 @@ module.exports = {
         })
         
         const confirm = await interaction.fetchReply()
-        const filteryes = (interaction:ButtonInteraction) => interaction.customId === 'yes' && interaction.user.id === (enemy as GuildMember).id;
+        const filteryes:any = (interaction:ButtonInteraction) => interaction.customId === 'yes' && interaction.user.id === (enemy as GuildMember).id;
         const collectoryes = (confirm as Message).createMessageComponentCollector({
             filter: filteryes,
             time: 15000
@@ -41,7 +41,7 @@ module.exports = {
             start(inter, interaction, confirm, enemy)
         })
 
-        const filterno = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === (enemy as GuildMember).id;
+        const filterno:any = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === (enemy as GuildMember).id;
         const collectorno = (confirm as Message).createMessageComponentCollector({
             filter: filterno,
             time: 15000

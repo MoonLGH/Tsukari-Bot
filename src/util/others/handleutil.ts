@@ -78,13 +78,6 @@ function search(item: String, arr: Array < String > ) {
     return null;
 }
 
-function handleEvents() {
-    for (const file of fs.readdirSync('./src/events/').filter((file: any) => file.endsWith('.ts'))) {
-
-    }
-    return null
-}
-
 function searchcommand(interaction: CommandInteraction) {
     const commandFiles = fs
         .readdirSync("./src/slash")
@@ -103,6 +96,5 @@ export {
     search,
     handleCommand,
     Vars,
-    handleEvents,
     searchcommand
 }

@@ -40,7 +40,7 @@ module.exports = {
         })
 
         const confirm = await interaction.fetchReply()
-        const filter = (interaction: ButtonInteraction) => interaction.user.id === (enemy as GuildMember).id;
+        const filter:any = (interaction: ButtonInteraction) => interaction.user.id === (enemy as GuildMember).id;
         const collector:any = (confirm as Message).createMessageComponentCollector({
             filter: filter,
             time: 15000
@@ -124,7 +124,8 @@ async function makebutton(interaction: any, player:  any, enemy: any, inter: But
 
 async function checkwinner(obj: any, inter: ButtonInteraction, player: any) {
     let result = "No one wins"
-    if (!obj.player1 || !obj.player2) {
+    console.log(obj.player1 + obj.player2)
+    if (!obj[`player1`] || !obj["player2"]) {
         return null
     }
     if (obj.player1 === obj.player2) result = "It's a draw!"
