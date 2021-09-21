@@ -8,10 +8,9 @@ const Tokens = process.env.Token?.split(",")
 
 if(Tokens?.length === 1){
     const client = new D.Client({intents: config.intents})
-    client.login(process.env.TOKEN)
+    client.login(process.env.Token || Tokens[0])
     require("./util/handler/EventHandler.ts").setup(client)
 }else{
-// for of tokens array
     for (let tok = 0; tok < Tokens!.length; tok++) {
         const client = new D.Client({intents: config.intents})
         const token = Tokens![tok];
