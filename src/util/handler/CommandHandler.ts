@@ -19,6 +19,6 @@ export async function handler(msg: Message,command: String,args: Array<String>,p
       getcmd = await handleCommand(command);
    }
    if (getcmd) {
-      require(`../../commands/${getcmd.folder}/${getcmd.file}`).execute(msg,command,args,prefix,getcmd.alias || getcmd.file);
+      require(`../../TextCommands/${getcmd.folder}/${getcmd.file}`).execute(msg,command,args,prefix,getcmd.alias || getcmd.file);
    }
 }

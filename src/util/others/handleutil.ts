@@ -19,7 +19,7 @@ async function handleCommand(command: any, folder? : String) {
 }
 
 async function handleFolder(command: any) {
-    const commandFiles = fs.readdirSync('./src/commands', {
+    const commandFiles = fs.readdirSync('./src/TextCommands', {
         withFileTypes: true
     }).filter((dirent: any) => dirent.isDirectory()).map((dirent: any) => dirent.name)
     for (const folder of commandFiles) {
@@ -34,8 +34,8 @@ async function handleFolder(command: any) {
 }
 
 function handleFiles(command: any, folder: any) {
-    for (const file of fs.readdirSync('./src/commands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
-        const cmd = require(`../../commands/${folder}/${file}`)
+    for (const file of fs.readdirSync('./src/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
+        const cmd = require(`../../TextCommands/${folder}/${file}`)
         if (cmd.alias) {
             const check: any = CheckForAlias(command, cmd)
             if (check) {
@@ -80,11 +80,11 @@ function search(item: String, arr: Array < String > ) {
 
 function searchcommand(interaction: CommandInteraction) {
     const commandFiles = fs
-        .readdirSync("./src/slash")
+        .readdirSync("./src/SlashCommands")
         .filter((file: any) => file.endsWith(".ts"));
 
     for (const file of commandFiles) {
-        const command = require(`../../slash/${file}`);
+        const command = require(`../../SlashCommands/${file}`);
         if (command.name === interaction.commandName) {
             return command;
         }

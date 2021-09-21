@@ -6,7 +6,7 @@ module.exports = {
     "description":"Get Help of a Command",
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
         if(args.length === 0){
-            const commandFiles = fs.readdirSync('./src/commands',{ withFileTypes: true }).filter((dirent:any) => dirent.isDirectory()).map((dirent:any) => dirent.name)
+            const commandFiles = fs.readdirSync('./src/TextCommands',{ withFileTypes: true }).filter((dirent:any) => dirent.isDirectory()).map((dirent:any) => dirent.name)
 
             let cats = []
             for (const folder of commandFiles) {
@@ -44,12 +44,13 @@ module.exports = {
               let sended = await msg.channel.send({embeds:[embed],components:component})
               const filter = (interaction:ButtonInteraction) => interaction.user.id === msg.author.id
               let maincollector = sended.createMessageComponentCollector({
-                  filter: filter,
-                  time: 15000
+                componentType: "BUTTON",
+                filter: filter,
+                time: 15000
               })
               maincollector.on('collect', async (interaction:any) => {
                 let cmds:Array<any> = []
-                for (const file of fs.readdirSync('./src/commands/'+interaction.customId).filter((file:any) => file.endsWith('.ts'))){
+                for (const file of fs.readdirSync('./src/TextCommands/'+interaction.customId).filter((file:any) => file.endsWith('.ts'))){
                     const cmd = require(`../${interaction.customId}/${file}`)
                     let obj:any = {CmdName:cmd.name||"No Name Setted",description:cmd.description||"No Description Setted",usage:cmd.usage||"No Usage Setted"}
                     if(cmd.alias && cmd.alias.length > 0){

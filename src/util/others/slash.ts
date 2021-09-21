@@ -5,13 +5,13 @@ const fs = require("fs");
 async function addpublic(client: Client,msg:Message) {
   await console.log("Loading Slash Commands");
   const commandFiles = fs
-    .readdirSync("./src/slash/")
+    .readdirSync("./src/SlashCommands/")
     .filter((file: any) => file.endsWith(".ts"));
   
     let sendmsg = await msg.channel.send("Loading...")
     let commands = []
     for (const file of commandFiles) {
-    const command = require(`../../slash/${file}`);
+    const command = require(`../../SlashCommands/${file}`);
     await console.log(`Slash Loading: ${file}`);
     
     if(!command.name || !command.description){
@@ -36,12 +36,12 @@ async function addpublic(client: Client,msg:Message) {
 async function addhere(client: Client,msg:Message) {
   await console.log("Loading Slash Commands");
   const commandFiles = fs
-    .readdirSync("./src/slash/")
+    .readdirSync("./src/SlashCommands/")
     .filter((file: any) => file.endsWith(".ts"));
   let sendmsg = await msg.channel.send("Loading...")
   let commands = []
   for (const file of commandFiles) {
-    const command = require(`../../slash/${file}`);
+    const command = require(`../../SlashCommands/${file}`);
     await console.log(`Slash Loading: ${file}`);
 
     if(!command.name || !command.description){

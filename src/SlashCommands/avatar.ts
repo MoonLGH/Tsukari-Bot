@@ -29,7 +29,7 @@ module.exports = {
             person = await interaction.client.users.fetch(person)
         }
 
-        let avatar = person.avatarURL({format: "png", size: 1024});
+        let avatar = person.displayAvatarURL({format: "png", size: 1024});
 
         Embed.setAuthor(person.tag, avatar)
         .setImage(avatar)
