@@ -3,6 +3,7 @@ module.exports = {
     "name":"delmsg",
     "usage":`${require("../../default").defaultprefix}say "Message Here"`,
     "description":"Say Something",
+    "guildOnly":true,
     "alias":["purge"],
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string,alias:string){
 

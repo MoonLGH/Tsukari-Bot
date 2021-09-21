@@ -1,7 +1,3 @@
-guildOnly = To make command guild guildOnly
-Alias = array of aliases(this will make 1 more parameter as "alias that used"in the execute params)
-ownerOnly = Only Bot Owner who can use it
-
 
 Required for Slash 
 Name (must be the file name without .js)
@@ -13,17 +9,23 @@ Slash Only Optional
 options
 devonly /* Only developer server that got this */
 
-Else
+Template Slash Interaction
+    interaction: async function (interaction, client) {
 
-Required things to export
-Name (must be the file name without .js)
+TextChannel
+
+Required things to export TextCommand
+Name (must be the file name without .ts)
 Usage
 Description
 Execute
+
+TextCommand Optional
+guildOnly = To make command guild guildOnly
+Alias = array of aliases(this will make 1 more parameter as "alias that used"in the execute params)
+ownerOnly = Only Bot Owner who can use it
 
 Execute Template 
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
 With Alias 
     "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string,alias:string){
-Slash Interaction
-    interaction: async function (interaction, client) {

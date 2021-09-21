@@ -36,20 +36,27 @@ async function handleFolder(command: any) {
 function handleFiles(command: any, folder: any) {
     for (const file of fs.readdirSync('./src/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
         const cmd = require(`../../TextCommands/${folder}/${file}`)
+        let other = {
+            permission : cmd.permission || [],
+            guildOnly : cmd.guildOnly || false,
+            DMOnly : cmd.DMOnly || false
+        }
         if (cmd.alias) {
             const check: any = CheckForAlias(command, cmd)
             if (check) {
                 return {
                     file: file,
                     folder: folder,
-                    alias: check.alias
+                    alias: check.alias,
+                    other : other
                 }
             }
         }
         if (cmd.name === command || file === command) {
             return {
                 file: file,
-                folder: folder
+                folder: folder,
+                other : other
             }
         }
     }

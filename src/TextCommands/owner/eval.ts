@@ -81,7 +81,7 @@ module.exports = {
     
             return msg.channel.send({embeds:[embed]});
         } catch (err) {
-          const stacktrace = text.joinArrayAndLimit(err.stack.split('\n'),900,'\n');
+          const stacktrace = text.joinArrayAndLimit((err as Error).stack?.split('\n'),900,'\n');
           const value = [
             '```xl',
             stacktrace.text,
@@ -91,7 +91,7 @@ module.exports = {
             const embed = new D.MessageEmbed()
             .setColor('RED')
             .setFooter([
-              `${err.name}`,
+              `${(err as Error).name}`,
               `Evaluated in ${Math.abs(Date.now() - msg.createdTimestamp)}ms.`,
               `Eval | \©️${new Date().getFullYear()} ${msg.guild?.me?.displayName || msg.client.user?.username}`].join('\u2000•\u2000'))
             .addFields([
