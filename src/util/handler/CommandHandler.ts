@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import { handleCommand, search, Vars } from "../others/handleutil";
 const def = require("../../default.js")
 
-async function getCommand(command: String,args: Array<String>) {
+async function getCommand(command: string,args: Array<string>) {
    let getcmd = null;
    if (search(command, Vars.forwardable)) {
       let folder = command;
@@ -14,7 +14,7 @@ async function getCommand(command: String,args: Array<String>) {
    return getcmd;
 }
 
-export async function handler(msg: Message,command: String,args: Array<String>,prefix: string) {
+export async function handler(msg: Message,command: string,args: Array<string>,prefix: string) {
    let getcmd: any = await getCommand(command, args);
    if (!getcmd) {
       getcmd = await handleCommand(command);

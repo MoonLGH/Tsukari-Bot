@@ -1,79 +1,22 @@
 const fs = require("fs")
-import {
-    Message,CommandInteraction
-} from "discord.js"
+import { CommandInteraction } from "discord.js"
+import { isGeneratorFunction } from "util/types"
+import {commands, slashes} from "./globalVar"
+import {slash as slashInterface} from "./typing"
 
 let Vars = {
     nofolder: ["slash", "owner", "anime"],
     forwardable: ["owner", "anime"]
 }
 
-async function handleCommand(command: any, folder? : String) {
+async function handleCommand(command: any, folder? : string) {
     let cmd
     if (folder) {
-        cmd = await handleFiles(command, folder)
+        cmd = await getCommand(command, folder)
     } else {
-        cmd = await handleFolder(command)
+        cmd = await getCommand(command)
     }
     return cmd
-}
-
-async function handleFolder(command: any) {
-    const commandFiles = fs.readdirSync('./src/TextCommands', {
-        withFileTypes: true
-    }).filter((dirent: any) => dirent.isDirectory()).map((dirent: any) => dirent.name)
-    for (const folder of commandFiles) {
-        if (!search(folder, Vars.nofolder)) {
-            let cmd = await handleFiles(command, folder)
-
-            if (cmd) {
-                return cmd
-            }
-        }
-    }
-}
-
-function handleFiles(command: any, folder: any) {
-    for (const file of fs.readdirSync('./src/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
-        const cmd = require(`../../TextCommands/${folder}/${file}`)
-        let other = {
-            permission : cmd.permission || [],
-            guildOnly : cmd.guildOnly || false,
-            DMOnly : cmd.DMOnly || false
-        }
-        if (cmd.alias) {
-            const check: any = CheckForAlias(command, cmd)
-            if (check) {
-                return {
-                    file: file,
-                    folder: folder,
-                    alias: check.alias,
-                    other : other
-                }
-            }
-        }
-        if (cmd.name === command || file === command) {
-            return {
-                file: file,
-                folder: folder,
-                other : other
-            }
-        }
-    }
-    return null
-}
-
-function CheckForAlias(command: string, cmd: any) {
-    let alias = null
-    cmd.alias.forEach((cmds: any) => {
-        if (cmds === command) {
-            alias = {
-                cmd: cmd,
-                alias: cmds
-            }
-        }
-    });
-    return alias
 }
 
 function search(item: String, arr: Array < String > ) {
@@ -85,23 +28,81 @@ function search(item: String, arr: Array < String > ) {
     return null;
 }
 
-function searchcommand(interaction: CommandInteraction) {
+function loadSlashCommand() {
     const commandFiles = fs
         .readdirSync("./src/SlashCommands")
         .filter((file: any) => file.endsWith(".ts"));
 
+    let arr:Array<slashInterface> = []
     for (const file of commandFiles) {
         const command = require(`../../SlashCommands/${file}`);
-        if (command.name === interaction.commandName) {
-            return command;
+
+        arr.push({
+            name:command.name,
+            file:file,
+            filepath: `../../SlashCommands/${file}`,
+            options:command.options||[],
+            interaction:command.interaction
+        })
+    }
+    return arr;
+}
+
+async function loadTextCommand() {
+    const commandFiles = fs.readdirSync('./src/TextCommands', {
+        withFileTypes: true
+    }).filter((dirent: any) => dirent.isDirectory()).map((dirent: any) => dirent.name)
+
+    let arr = []
+    for (const folder of commandFiles) {
+        for (const file of fs.readdirSync('./src/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
+            const cmd = require(`../../TextCommands/${folder}/${file}`)
+            let other = {
+                permission : cmd.permission || [],
+                guildOnly : cmd.guildOnly || false,
+                DMOnly : cmd.DMOnly || false
+            }
+            arr.push({
+                name: cmd.name,
+                file:file,
+                folder: folder,
+                alias: cmd.alias || [],
+                other : other,
+                filepath : `../../TextCommands/${folder}/${file}`,
+            })
+            
         }
     }
-    return false;
+    return arr
+}
+
+async function getCommand(command:string,folder?:string){
+    let cmd
+    if(folder){
+        cmd = commands.find(cmd => cmd.folder === folder && (cmd.name === command || cmd.alias.includes(command)))
+    }else{
+        cmd = commands.find(cmd => cmd.name === command || cmd.alias.includes(command))
+    }
+
+    if(!cmd){
+        cmd = null
+    }
+    return cmd
+}
+
+async function getSlash(interaction:CommandInteraction){
+    let cmd = slashes.find(s => s.name === interaction.commandName)
+
+    if(cmd) return cmd
+
+    return null
 }
 
 export {
     search,
     handleCommand,
     Vars,
-    searchcommand
+    loadSlashCommand,
+    loadTextCommand,
+    getSlash
 }
