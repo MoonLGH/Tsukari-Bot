@@ -1,12 +1,11 @@
 const fs = require("fs")
 import { CommandInteraction } from "discord.js"
-import { isGeneratorFunction } from "util/types"
 import {commands, slashes} from "./globalVar"
 import {slash as slashInterface} from "./typing"
 
 let Vars = {
-    nofolder: ["slash", "owner", "anime"],
-    forwardable: ["owner", "anime"]
+    nofolder: ["slash", "owner"],
+    forwardable: ["owner"]
 }
 
 async function handleCommand(command: any, folder? : string) {
