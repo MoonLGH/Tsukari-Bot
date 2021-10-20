@@ -5,7 +5,7 @@ const fs = require("fs");
 async function addpublic(client: Client,msg:Message) {
   await console.log("Loading Slash Commands");
   const commandFiles = fs
-    .readdirSync("./src/SlashCommands/")
+    .readdirSync("./src/Discord/SlashCommands/")
     .filter((file: any) => file.endsWith(".ts"));
   
     let sendmsg = await msg.channel.send("Loading...")
@@ -36,7 +36,7 @@ async function addpublic(client: Client,msg:Message) {
 async function addhere(client: Client,msg:Message) {
   await console.log("Loading Slash Commands");
   const commandFiles = fs
-    .readdirSync("./src/SlashCommands/")
+    .readdirSync("./src/Discord/SlashCommands/")
     .filter((file: any) => file.endsWith(".ts"));
   let sendmsg = await msg.channel.send("Loading...")
   let commands = []

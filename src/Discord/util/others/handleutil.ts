@@ -29,7 +29,7 @@ function search(item: String, arr: Array < String > ) {
 
 function loadSlashCommand() {
     const commandFiles = fs
-        .readdirSync("./src/SlashCommands")
+        .readdirSync("./src/Discord/SlashCommands")
         .filter((file: any) => file.endsWith(".ts"));
 
     let arr:Array<slashInterface> = []
@@ -48,13 +48,13 @@ function loadSlashCommand() {
 }
 
 async function loadTextCommand() {
-    const commandFiles = fs.readdirSync('./src/TextCommands', {
+    const commandFiles = fs.readdirSync('./src/Discord/TextCommands', {
         withFileTypes: true
     }).filter((dirent: any) => dirent.isDirectory()).map((dirent: any) => dirent.name)
 
     let arr = []
     for (const folder of commandFiles) {
-        for (const file of fs.readdirSync('./src/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
+        for (const file of fs.readdirSync('./src/Discord/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
             const cmd = require(`../../TextCommands/${folder}/${file}`)
             let other = {
                 permission : cmd.permission || [],

@@ -26,7 +26,7 @@ module.exports = {
             const command = args.shift() !.toLowerCase()
             handler(msg, command, args, prefix)
         } catch (err) {
-            require("../util/others/error.ts").execute(err, msg, D)
+            require("../util/others/error.ts").execute(err, msg)
         }
     },
 };
