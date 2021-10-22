@@ -1,6 +1,6 @@
 import {Permissions} from "discord.js"
 interface other {
-    permission : Array<Permissions>|null,
+    permission : Array<Permissions>|Array<string>|null,
     guildOnly : boolean,
     DMOnly : boolean
 }
@@ -14,8 +14,6 @@ interface command {
     filepath : string, 
 }
 
-
-
 interface Opt{
     name: string,
     type: string,
@@ -23,15 +21,23 @@ interface Opt{
     description: string
 }
 
+interface HelpInterface {
+    CmdName: string,
+    description: string
+    usage: string
+    alias? : string
+}
+
 interface slash {
     name: string,
     file:string,
     filepath : string,
     options:Array<Opt>,
+    description:string,
     interaction:Function
 }
-
 export {
     command,
-    slash
+    slash,
+    HelpInterface,
 }

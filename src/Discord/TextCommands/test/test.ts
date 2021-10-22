@@ -1,5 +1,5 @@
 import { Message } from "discord.js"
-module.exports = {
+export = {
     "name":"test",
     "usage":`${require("../../default").defaultprefix}test`,
     "description":"Reply With Testt",

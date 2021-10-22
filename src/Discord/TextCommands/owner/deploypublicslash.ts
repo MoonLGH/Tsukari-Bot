@@ -3,7 +3,7 @@ import {
 } from "discord.js"
 const D = require("discord.js")
 import {addpublic} from "../../util/others/slash"
-module.exports = {
+export = {
     "name": "deploypublicslash",
     "usage": `${require("../../default").defaultprefix}owner deploypublicslash `,
     "description": "Deploy Slash Command To Public",

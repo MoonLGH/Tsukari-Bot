@@ -6,7 +6,7 @@ const {
 import {
     ButtonInteraction, CommandInteraction, GuildMember, Message, MessageCollector
 } from 'discord.js'
-module.exports = {
+export = {
     name: "rockpaperscissors",
     description: "Challange Someone to play Rock Paper Scissors",
     options: [{

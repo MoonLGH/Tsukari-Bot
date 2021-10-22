@@ -1,9 +1,9 @@
 import {
     ButtonInteraction, CommandInteraction, GuildMember, Message, MessageCollector,MessageEmbed,Collection
 } from 'discord.js'
-module.exports = {
+export = {
     name: "avatar",
-    description: "Challange Someone to play Rock Paper Scissors",
+    description: "Show User/Member avatar",
     options: [{
         "name": "target",
         "type": "STRING",

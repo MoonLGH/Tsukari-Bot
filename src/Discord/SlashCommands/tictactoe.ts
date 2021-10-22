@@ -4,7 +4,7 @@ const {
 } = require('discord.js');
 
 import { CommandInteraction,ButtonInteraction, GuildMember, Message } from 'discord.js'
-module.exports = {
+export = {
     name: "tictactoe",
     description: "Play Tic tac Toe Here :D",
     options: [{

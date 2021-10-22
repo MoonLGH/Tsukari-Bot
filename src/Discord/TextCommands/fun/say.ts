@@ -1,10 +1,10 @@
 import { Message } from "discord.js"
-module.exports = {
+export = {
     "name":"say",
     "usage":`${require("../../default").defaultprefix}say "Message Here"`,
     "description":"Say Something",
     "alias":["echo"],
-    "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string,alias:string){
+    "execute":async function(msg:Message, command:string, args:Array<string>, prefix:string,alias:string){
         msg.channel.send(args.join(" "))
     }
 }

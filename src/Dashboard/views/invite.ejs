@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tsukari - Invite</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="stylesheets/untitled.css">
+</head>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand text-capitalize" href="https://MoonL.me/" style="color: #42dca3;">MoonL</a><a class="navbar-brand text-capitalize" style="color: #42dca3;">|</a><a class="navbar-brand text-capitalize" id="title" href="./" style="color: #42dca3;">Tsukari</a><button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive" style="color: var(--bs-secondary);">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item nav-link"><a class="nav-link" href="#invites">Invite</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background-color:grey">
+        <div class="intro-body" style="background-color: var(--bs-gray-400)">
+            <section class="text-center content-section" id="invites" style="background: var(--bs-dark);">
+                <section class="portfolio-block block-intro" style="padding-top: 50px;">
+                    <img src="<%= imgsrc %>" class="rounded-circle" width="200px">
+                    <div class="container">
+                        <div class="about-me">
+                            <h1 style="
+                            font-size: 1.5em;
+                            font-weight: 300;
+                            padding-top: 30px;
+                            color: var(--bs-gray-400);
+                        ">Invite me here</h1>
+                    </div>
+                </section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Bot permission</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="display: inline-flex;justify-content: space-evenly;width: 900px;flex-wrap: wrap;/*text-align: center;*/">
+                            <% for(const perm of Permissions){ %>    
+                            <div class="form-check"><input class="form-check-input" type="checkbox" id="<%= perm.bit %>">
+                                <label class="form-check-label" for="<%= perm.bit %>"><%= perm.name %></label>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Special Setting</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col" style="text-align: center;width: 50%;">
+                            <div class="form-check"><input class="form-check-input" type="checkbox" id="slash"><label class="form-check-label" for="slash">Slash Commands</label></div>
+                        </div>
+                    </div>
+                </div><button class="btn btn-primary" type="button" onclick="genInv()">invite</button>
+            </section>
+        </div>
+    </header>
+    <footer>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;MoonL 2021</p>
+        </div>
+    </footer>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/grayscale.js"></script>
+    <script src="javascripts/invite.js"></script>
+</body>
+
+</html>

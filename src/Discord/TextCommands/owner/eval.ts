@@ -4,11 +4,11 @@ const { inspect } = require('util');
 import * as ts from "typescript"
 const text = require('../../util/others/string.js');
 const fetch = require('node-fetch');
-module.exports = {
+export = {
     "name":"eval",
     "usage":`${require("../../default").defaultprefix}owner eval \`\`\`\ Codeblock Of Code\`\`\` `,
     "description":"Eval A Code",
-    "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
+    "execute":async function(msg:Message, command:string, args:Array<string>, prefix:string){
         try {
             const matches:any = msg.content.match(/```(?:(?<lang>\S+)\n)?\s?(?<code>[^]+?)\s?```/)?.groups || msg.content.match(/```(?<code>[^]+?)\s?```/)?.groups
             let coded = matches.code

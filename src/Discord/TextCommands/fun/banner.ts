@@ -1,24 +1,26 @@
 import fetch from "node-fetch";
 
 import {
+    Collection,
+    GuildMember,
     Message, MessageEmbed
 } from "discord.js"
-module.exports = {
+export = {
     "name": "banner",
     "usage": `${require("../../default").defaultprefix}banner [Id/Member Nick/Mentions]`,
     "description": "Reply With Pong",
-    "execute": async function (msg: Message, command: String, args: Array < any > , prefix: string) {
+    "execute": async function (msg: Message, command: string, args: Array < string > , prefix: string) {
         let user
         if(!args[0]){
             user = msg.author
         }else if(msg.mentions.users.first()){
             user = msg.mentions.users.first()
-        }else if(isNaN(args[0])){
+        }else if(isNaN((args[0] as unknown) as number)){
             user = await msg.guild?.members.fetch({
                 query: args.join(' '),
                 limit: 1
-            }).then((members:any) => members.first().user).catch(() => null)
-        }else if(!isNaN(args[0])){
+            }).then((members:Collection<string,GuildMember>) => members.first()?.user).catch(() => null)
+        }else if(!(isNaN((args[0] as unknown) as number))){
             user = await msg.client.users.fetch(args[0])
         }else {
             return msg.reply("I Found No One")

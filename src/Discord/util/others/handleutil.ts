@@ -27,20 +27,21 @@ function search(item: String, arr: Array < String > ) {
     return null;
 }
 
-function loadSlashCommand() {
+async function loadSlashCommand() {
     const commandFiles = fs
         .readdirSync("./src/Discord/SlashCommands")
         .filter((file: any) => file.endsWith(".ts"));
 
     let arr:Array<slashInterface> = []
     for (const file of commandFiles) {
-        const command = require(`../../SlashCommands/${file}`);
+        const command = await import(`../../SlashCommands/${file}`);
 
         arr.push({
             name:command.name,
             file:file,
             filepath: `../../SlashCommands/${file}`,
             options:command.options||[],
+            description:command.description,
             interaction:command.interaction
         })
     }
@@ -55,7 +56,7 @@ async function loadTextCommand() {
     let arr = []
     for (const folder of commandFiles) {
         for (const file of fs.readdirSync('./src/Discord/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
-            const cmd = require(`../../TextCommands/${folder}/${file}`)
+            const cmd = await import(`../../TextCommands/${folder}/${file}`)
             let other = {
                 permission : cmd.permission || [],
                 guildOnly : cmd.guildOnly || false,

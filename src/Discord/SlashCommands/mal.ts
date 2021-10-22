@@ -1,5 +1,5 @@
 import {CommandInteraction} from "discord.js"
-module.exports = {
+export = {
     name: "mal",
     description: "Make Me Say Something :D",
     options: [{

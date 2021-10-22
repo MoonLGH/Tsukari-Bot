@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Tsukari - つかり</title>
-    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
-    <link rel="stylesheet" href="fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="stylesheets/untitled.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/untitled.css">
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
@@ -27,12 +27,11 @@
             </div>
         </div>
     </nav>
-    <header class="masthead" style="background-color: var(--bs-gray-400)">
-        <div class="intro-body" style="color: var(--bs-light);">
+    <header class="masthead" style="background-color:grey">
+        <div class="intro-body" style="background: var(--bs-gray-400);color: var(--bs-light);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
-                        <img src="<%= imgsrc %>" class="rounded-circle" width="200px">
                         <h1 id="title" class="brand-heading text-capitalize" style="color: var(--bs-dark);">Tsukari</h1>
                         <p class="intro-text" style="color: var(--bs-dark);">A Multipurposed Discord Bot</p>
                         <div class="row">
@@ -73,15 +72,15 @@
             <div class="row row-cols-lg-12">
                 <div class="col-md-4">
                     <h2>Uptime<br></h2>
-                    <h4><%= uptime %><br></h4>
+                    <h4>... HOUR<br></h4>
                 </div>
                 <div class="col-md-4">
                     <h2>Currently in<br></h2>
-                    <h4><%= guildSize %> Server<br></h4>
+                    <h4>.... GUILDS<br></h4>
                 </div>
                 <div class="col-md-4">
                     <h2>total commands<br></h2>
-                    <h4><%= commandSize %><br><%= slashSize %></h4>
+                    <h4>4 commands loaded</h4>
                 </div>
             </div>
         </div>
@@ -92,7 +91,7 @@
                 <div class="col-lg-8 mx-auto">
                     <h2>F.A.Q</h2>
                     <p style="text-align: left;">Q:Is Tsukari gonna spy me ?<br>A:No. infact, Tsukari is Open-source, you can see what we do with it,&nbsp;<a href="https://github.com/MoonLGH/Tsukari-Bot">Here</a></p>
-                    <p style="text-align: left;">Q:How and what does Tsukari use?<br>A:Tsukari is Running Discord.js V13 with Mongodb as the database part, and hosted in an Azure vm</p><p style="text-align: left;">Q:What does Tsukari do?<br />A:Tsukari can do a lot of things, like anime commands and stuff, <a href="./commands?type=text">Click here for Command List<br /></a></p>
+                    <p style="text-align: left;">Q:How and what does Tsukari use?<br>A:Tsukari is Running Discord.js V13 with Mongodb as the database part, and hosted in an Azure vm</p><p style="text-align: left;">Q:What does Tsukari do?<br />A:Tsukari can do a lot of things, like anime commands and stuff, <a href="./commands/?type=text">Click here for Command List<br /></a></p>
                     <p style="text-align: left;">Q:Why does the bot named "Tsukari"?<br>A:"Tsukari" つかり is actually came from "Tsuki No Hikari" 月の光 that means "Moon Light"<br></p>
                     <p style="text-align: left;">Q:How do i request for commands/How do i get Support?<br>A:Good question, move to the next section<br></p>
                 </div>
@@ -114,7 +113,7 @@
             <div class="row" style="color: var(--bs-dark);">
                 <div class="col-lg-8 mx-auto">
                     <h2>Command List</h2>
-                    <p>Looking For Tsukari Command List's ?<br>Click the green button below</p><a class="btn btn-primary" href="./commands?type=text">Command List</a>
+                    <p>Looking For Tsukari Command List's ?<br>Click the green button below</p><a class="btn btn-primary" href="./commands/?type=text">Command List</a>
                 </div>
             </div>
         </div>
@@ -124,8 +123,9 @@
             <p>Copyright ©&nbsp;MoonL 2021</p>
         </div>
     </footer>
-    <script src="javascripts/bootstrap.min.js"></script>
-    <script src="javascripts/grayscale.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/grayscale.js"></script>
+    <script src="assets/js/invite.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,29 @@
+@keyframes change {
+  1% {
+    opacity: 1%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.animate {
+  animation: change 1s;
+}
+
+a.nav-link {
+  color: #42dca3 !important;
+}
+
+.btn-primary {
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+div.col > div.form-check {
+  text-align:left;
+  flex-basis: 30%;
+  margin-bottom: 2%;
+  vertical-align: middle;
+  width: 100%;
+}
