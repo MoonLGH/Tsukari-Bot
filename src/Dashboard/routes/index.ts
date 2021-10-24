@@ -24,6 +24,13 @@ router.get('/invite', function(req:Express.Request, res:Express.Response, next?:
 
 });
 
+// redirect all http requests to https
+router.get('*', function(req:Express.Request, res:Express.Response, next?:Function) {
+  if(req.headers['x-forwarded-proto'] != 'https'){
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
+
 router.get('/commands', function(req:Express.Request, res:Express.Response, next?:Function) {
 
   let type = req.query.type
