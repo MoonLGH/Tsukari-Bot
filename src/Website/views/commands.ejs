@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
     <link rel="stylesheet" href="fonts/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/untitled.css">
+    <link rel="stylesheet" href="stylesheets/commands.css">
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
@@ -26,7 +27,12 @@
     <header class="masthead" style="background-color:grey">
         <div class="intro-body" style="background: var(--bs-gray-400);color: var(--bs-light);">
             <section style="background: var(--bs-dark);" class="content-section">
-                <select style="width: 80%;margin-left: auto;margin-right: auto;" class="form-select">
+                <div class="input-group" id="search-input"><input type="text" class="bg-light form-control border-0 small" placeholder="Search for ..." value="<%- search %>"/>
+                    <button class="btn btn-primary py-0" type="button" onclick="inputchange(this)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <select style="width: 80%;margin-left: auto;margin-right: auto;" class="form-select" onchange="selectchange(this)">
                     <option value="text" id="selectText">Text Commands</option>
                     <option value="slash" id="selectSlash">Slash Commands</option>
                 </select>
@@ -54,8 +60,8 @@
     <script>
         let slash = '<%- JSON.stringify(slashes) %>'
         let text = '<%- JSON.stringify(commands) %>'
+        let search = '<%- search %>'
         let type = '<%- type %>'
-        let serch = '<%- search %>'
 
         if(type !== "slash" && type !== "text"){
             type = "text"

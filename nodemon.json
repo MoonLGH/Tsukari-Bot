@@ -1,4 +1,5 @@
 {
     "ext": "ts,json,js,ejs",
-    "exec": "ts-node ./src/index.ts"
+    "exec": "ts-node ./src/index.ts",
+    "ignore":["src/Dashboard/*/*.ejs","src/Dashboard/public/*"]
   }

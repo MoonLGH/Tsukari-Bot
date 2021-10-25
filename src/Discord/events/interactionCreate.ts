@@ -3,7 +3,7 @@ import {
     Client
 } from 'discord.js';
 import { getSlash } from '../util/others/handleutil';
-module.exports = {
+export = {
     name: 'interactionCreate',
     async execute(interaction: CommandInteraction,client:Client) {
         if (interaction.isCommand()) {

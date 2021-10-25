@@ -3,9 +3,9 @@ import DJS from "../../Discord/index"
 import * as vars from "../../Discord/util/others/globalVar"
 import { countsUptime } from "../helpers/timeformat"
 import { commands,slashes } from "../../Discord/util/others/globalVar"
-import {slash} from "../../Discord/util/others/typing"
 import {makeArrayOfPermission} from "../helpers/permission"
-import { Interface } from "readline"
+import env from "dotenv"
+env.config()
 
 var router = Express.Router();
 
@@ -25,11 +25,13 @@ router.get('/invite', function(req:Express.Request, res:Express.Response, next?:
 });
 
 // redirect all http requests to https
-router.get('*', function(req:Express.Request, res:Express.Response, next?:Function) {
-  if(req.headers['x-forwarded-proto'] != 'https'){
-    res.redirect('https://' + req.headers.host + req.url);
-  }
-});
+if(process.env.status && process.env.status === "prod"){
+  router.get('*', function(req:Express.Request, res:Express.Response, next?:Function) {
+    if(req.headers['x-forwarded-proto'] != 'https'){
+      res.redirect('https://' + req.headers.host + req.url);
+    }
+  });  
+}
 
 router.get('/commands', function(req:Express.Request, res:Express.Response, next?:Function) {
 

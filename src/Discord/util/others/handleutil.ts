@@ -69,6 +69,7 @@ async function loadTextCommand() {
                 alias: cmd.alias || [],
                 other : other,
                 filepath : `../../TextCommands/${folder}/${file}`,
+                description: cmd.description
             })
             
         }

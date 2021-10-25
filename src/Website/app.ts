@@ -16,10 +16,11 @@ app.set('view engine', 'ejs');
 env.config()
 var port = process.env.PORTHttp || 8080
 
-function start(){
+async function start(){
+    await console.log("==========")
     if(process.env.ssl === "usessl"){
-        var privateKey  = fs.readFileSync(process.env.PrivateKeySSLPath||'src/Dashboard/sslcert/privatekey.pem', 'utf8');
-        var certificate = fs.readFileSync(process.env.CertSSLPath||'src/Dashboard/sslcert/cert.pem', 'utf8');
+        var privateKey  = fs.readFileSync(process.env.PrivateKeySSLPath||'src/Website/sslcert/privatekey.pem', 'utf8');
+        var certificate = fs.readFileSync(process.env.CertSSLPath||'src/Website/sslcert/cert.pem', 'utf8');
         var credentials = {key: privateKey, cert: certificate};
         var httpServer = http.createServer(app);
         var httpsServer = https.createServer(credentials, app);
@@ -39,7 +40,7 @@ function start(){
     }
 }
 
-export default {
+export = {
     start,
     app
 }

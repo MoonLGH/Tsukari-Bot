@@ -3,11 +3,11 @@ const config = require("../default.js")
 import {commands,slashes} from "../util/others/globalVar"
 import {loadSlashCommand, loadTextCommand} from "../util/others/handleutil"
 async function SetActivity(client:Client){
-    const presence = await client.user?.setActivity(config.defaultStatus, { type: 'LISTENING' })
+    const presence = await client.user?.setActivity(config.defaultStatus, { type: 'WATCHING' })
     await console.log(`Activity Changed To ${presence?.activities[0].type} ${presence?.activities[0].name} \nStatus=${presence?.status}`)
 }
 
-module.exports = {
+export = {
 	name: 'ready',
 	async execute(client:Client) {
         await console.log("==========")

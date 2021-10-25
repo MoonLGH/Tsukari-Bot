@@ -12,6 +12,7 @@ interface command {
     alias: Array<string>,
     other : other,
     filepath : string, 
+    description: string
 }
 
 interface Opt{
@@ -36,6 +37,7 @@ interface slash {
     description:string,
     interaction:Function
 }
+
 export {
     command,
     slash,
