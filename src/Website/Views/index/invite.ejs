@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
     <link rel="stylesheet" href="fonts/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/untitled.css">
+    <link rel="stylesheet" href="stylesheets/grid.css">
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
@@ -25,7 +26,7 @@
     <header class="masthead" style="background-color:grey">
         <div class="intro-body" style="background-color: var(--bs-gray-400)">
             <section class="text-center content-section" id="invites" style="background: var(--bs-dark);">
-                <section class="portfolio-block block-intro" style="padding-top: 50px;">
+                <section class="portfolio-block block-intro" style="padding-top: 10px;">
                     <img src="<%= imgsrc %>" class="rounded-circle" width="200px">
                     <div class="container">
                         <div class="about-me">
@@ -40,11 +41,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
+                            <h1>Settings</h1>
+                        </div>
+                    </div>
+                    <div class="col grid" style="grid-template-columns: 1fr 1fr;">
+                        <button type="button" class="btn btn-primary" onclick="countstart('1945627743')">Defaults Settings</button>
+                        <button type="button" class="btn btn-primary" onclick="toggle('#advance')">Advance Setting</button>
+                    </div>
+                </div>
+                <div class="container collapse" id="advance">
+                    <div class="row">
+                        <div class="col-md-12">
                             <h1>Bot permission</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="display: inline-flex;justify-content: space-evenly;width: 900px;flex-wrap: wrap;/*text-align: center;*/">
+                        <div class="col grid">
                             <% for(const perm of Permissions){ %>    
                             <div class="form-check"><input class="form-check-input" type="checkbox" id="<%= perm.bit %>">
                                 <label class="form-check-label" for="<%= perm.bit %>"><%= perm.name %></label>
@@ -53,18 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Special Setting</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col" style="text-align: center;width: 50%;">
-                            <div class="form-check"><input class="form-check-input" type="checkbox" id="slash"><label class="form-check-label" for="slash">Slash Commands</label></div>
-                        </div>
-                    </div>
-                </div><button class="btn btn-primary" type="button" onclick="genInv()">invite</button>
+                <button class="btn btn-primary" type="button" style="margin-top: 2rem;" onclick="genInv()">invite</button>
             </section>
         </div>
     </header>
@@ -76,6 +77,15 @@
     <script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/grayscale.js"></script>
     <script src="javascripts/invite.js"></script>
+    <script>
+        let perms = "<%= perms %>"
+        let guild = "<%= guildID %>"
+        if(perms.length === 0){
+            perms = "1945627743"
+        }
+
+        countstart(perms)
+    </script>
 </body>
 
 </html>

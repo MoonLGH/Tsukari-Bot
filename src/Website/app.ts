@@ -2,19 +2,37 @@ import express from "express"
 import path from "path"
 import env from "dotenv"
 import indexRouter from "./routes/index"
+import dashboardRouter from "./routes/dashboard"
+// import apiRouter from "./routes/api"
 import https from 'https'
 import http from 'http'
-
-const fs = require('fs');
+import session from 'express-session'
+env.config()
+const port = process.env.PORTHttp || 8080
+import fs from "fs"
 
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', indexRouter);
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-env.config()
-var port = process.env.PORTHttp || 8080
+// use sessions for tracking logins
+app.use(session({
+    secret: process.env.sessionSecret || "imdumb",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 6000000
+    }
+}));
+
+// router and view
+app.use('/', indexRouter);
+app.use('/Dashboard/', dashboardRouter);
+// app.use('/api/', apiRouter);
+app.set('views', path.join(__dirname, 'Views'));
+
+// redirect all http request to https
+app.use((req:express.Request, res:express.Response, next:Function) => req.secure ? next() : res.redirect(`https://${req.hostname}${req.url}`))
 
 async function start(){
     await console.log("==========")

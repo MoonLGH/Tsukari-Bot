@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tsukari Dashboard - Login</title>
+    <%- include("./templates/head",{path:"../"}) %>
+</head>
+<body>
+    <%- include("./templates/navbar",{li:[{href:"../",name:"home"}]}) %>
+    <section class="text-center content-section" id="faq" style="background: var(--bs-gray-400);">
+        <div class="container">
+            <div class="row" style="color: var(--bs-dark);">
+                <h1>Login</h1>
+                <div class="col-lg-6 mx-auto">
+                    <a id="login" class="btn btn-primary" style="display: block;" href="<%= oauth2LoginURL %>">Sing in with discord</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include("./templates/scripts",{path:"../"}) %>
+</body>
+</html>

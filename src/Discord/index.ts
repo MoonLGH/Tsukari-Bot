@@ -1,6 +1,6 @@
 // Making Variable
 const config = require("./default.js")
-const D = require("discord.js")
+import D from "discord.js"
 
 const client = new D.Client({intents: config.intents,partials:config.partials})
 

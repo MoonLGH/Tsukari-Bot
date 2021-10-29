@@ -27,3 +27,8 @@ div.col > div.form-check {
   vertical-align: middle;
   width: 100%;
 }
+
+.btn-dark {
+  font-size: 20px;
+  border-radius: 10px;
+}

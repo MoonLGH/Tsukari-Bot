@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tsukari Dashboard</title>
+    <%- include("./templates/head",{path:""}) %>
+    <link rel="stylesheet" href="stylesheets/dashboard.css">
+</head>
+<body>
+    <%- include("./templates/navbar",{li:[{href:"./",name:"home"}]}) %>
+    <section class="text-center content-section" id="faq" style="background: var(--bs-gray-400);">
+        <div class="container">
+            <div class="row" style="color: var(--bs-dark);">
+                <div class="mx-auto">
+                    <h2>Servers</h2>
+                    <% if (userGuilds) { %>
+                    <div class="grid" id="server-list">
+                        <% for(const guild of userGuilds){ %>    
+                            <div class="card shadow border-start-warning py-2">
+                                <div class="card-body">
+                                    <div class="container align-items-center text-center no-gutters">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="text-uppercase fw-bold text-xs mb-1"><span style="font-family: var(--bs-body-font-family);"><%= guild.name %></span></div>                                            </div>
+                                        </div>
+                                        <div class="row icon-center">
+                                            <div class="col-auto">
+                                                <% if (guild.icon) { %>
+                                                    <img class="rounded-circle" style="width: 80px;" src="<%= guild.icon %>">
+                                                <% } else { %>
+                                                    <div style="font-family: var(--bs-body-font-family);" class="circle"><%= guild.letters %></div>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-detail" style="font-family: var(--bs-body-font-family);margin-top: 1rem;">
+                                        <div class="text-dark fw-bold h5 mb-0">
+                                            <% if (guild.status === "OWNER"){ %>
+                                                <span id="mystatus" class="text-dark fw-bold h5 mb-0">Server Owner</span>
+                                            <% } else if(guild.status === "MANAGE_GUILD") {%>
+                                                <span id="mystatus" class="text-dark fw-bold h5 mb-0">Server Manager</span>
+                                            <% } %>
+                                        </div>
+
+                                        <div class="text-dark fw-bold h5 mb-0">
+                                        <% if (guild.hasTsukari) { %>
+                                            <a class="btn btn-primary text-dark fw-bold h5 mb-0" href="dashboard/guild/<%=guild.id%>/">Settings</a>
+                                        <% } else {%>
+                                            <a class="btn btn-dark text-gray-400 fw-bold h5 mb-0" href="../invite?guildID=<%=guild.id%>/")">Invite</a>
+                                        <% }%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include("./templates/scripts",{path:""}) %>
+    <script src="javascripts/dashboard/mainpage.js"></script>
+	<script>
+        let accessToken = '<%- accessToken %>'
+        let tokenType = '<%- tokenType %>'
+        let status = '<%- status %>'
+	</script>
+</body>
+</html>

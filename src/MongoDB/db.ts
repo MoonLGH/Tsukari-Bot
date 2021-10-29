@@ -1,8 +1,15 @@
 import mongoose from "mongoose"
 import guildscheme from './scheme/GuildScheme'
+import userscheme from './scheme/UserScheme'
 import dotenv from "dotenv"
 dotenv.config()
 
+interface UserSchema extends mongoose.Document {
+    id: string,
+    username:string,
+    accessToken:string,
+    tokenType:string
+}
 async function connect(Url:string){
 
     const db = mongoose.connect(process.env.MongoDB_URL||Url,{
@@ -34,4 +41,4 @@ async function fetchGuild(id:string){
     return guildDB;
 }
 
-export = { connect,fetchGuild,test }
+export = { connect,fetchGuild }

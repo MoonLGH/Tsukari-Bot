@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tsukari Dashboard - Error</title>
+    <%- include("./templates/head",{path:"../"}) %>
+</head>
+<body>
+    <%- include("./templates/navbar",{li:[{href:"../",name:"home"}]}) %>
+    <section class="text-center text-dark content-section" style="background: var(--bs-gray-400);">
+        <h1>Error Has Occur</h1>
+        <h1>Message = <%= Message %></h1>
+        <a class="btn btn-primary" href="/dashboard">Dashboard main menu</a>
+    </section>
+    <%- include("./templates/scripts",{path:"../"}) %>
+</body>
+</html>

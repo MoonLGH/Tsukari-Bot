@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tsukari Dashboard - Prefix</title>
+    <%- include("./templates/head",{path:"../../../../"}) %>
+    <link rel="stylesheet" href="../../../../stylesheets/dashboard.css">
+    <link rel="stylesheet" href="../../../../stylesheets/grid.css">
+</head>
+<body style="background-color: var(--bs-gray-400);">
+    <%- include("./templates/navbar",{li:[{href:"./",name:"home"},{href:"",name:"prefix"}]}) %>
+    <section class="text-center content-section text-dark" style="background: var(--bs-gray-400);">
+        <div class="grid" style="grid-template-columns: 1fr !important;">
+            <div class="card shadow border-start-warning py-2" style="width: 50%;justify-self: center;">
+                <div class="card-body">
+                    <div class="container align-items-center text-center no-gutters">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <div class="text-uppercase fw-bold text-xs mb-1"><span style="font-family: var(--bs-body-font-family);"><%= guild.name %></span></div>                                            </div>
+                        </div>
+                        <div class="row icon-center">
+                            <div class="col-auto">
+                                <% if (guild.icon) { %>
+                                    <img class="rounded-circle" style="width: 80px;" src="<%= guild.icon %>">
+                                <% } else { %>
+                                    <div style="font-family: var(--bs-body-font-family);" class="circle"><%= guild.letters %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Prefix List</h2>
+        <div class="container grid" id="prefix-list">
+        <% for (let prefix of dbguild.prefix) {%>
+            <div class="container" style="border: 3px solid var(--bs-dark); border-radius: 15px;">
+                <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-12">
+                            <input type="text" class="login-input" id="prefix" value="<%= prefix %>" style="font-size: 30px; border-radius:10px">
+                        </div>
+                </div>
+                <div class="row"style="margin-bottom: 10px;">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" onclick="delprefix(this)">Delete</button>
+                        </div>
+                </div>
+            </div>
+        <% } %>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary" onclick="addprefix()">Add Prefix</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" onclick="save()">Save</button>
+                </div>
+            </div>
+    </section>
+    <script src="../../../../javascripts/dashboard/prefix.js"></script>
+    <%- include("./templates/scripts",{path:"../../../../"}) %>
+</body>
+</html>

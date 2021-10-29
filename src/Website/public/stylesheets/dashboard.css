@@ -1,0 +1,85 @@
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+    margin-top: 57px;
+    margin-bottom: 60px;
+}
+
+@media (max-width: 1080px) {
+    .grid{
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+@media (max-width: 840px) {
+    .grid{
+        grid-template-columns: 1fr !important;
+    } 
+}
+
+
+.grid > .card > .card-body > .row > .col-auto > img {
+    width:50px
+}
+
+.grid span#mystatus {
+    font-size : 15px
+}
+
+.grid > .card > .card-body > .row > .col-auto > a.link {
+    font-size: 15px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.grid span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* max-width: 200px; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    padding: 0px;
+}
+.grid > .card {
+    border-radius:10px;
+    height: 200px;
+    width:100%;
+}
+.guildIcon {
+    border: 2px solid rgb(85, 87, 98);
+    background: transparent;
+    filter: none;
+    font-size: 24px;
+}
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: var(--bs-dark);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+    user-select: none;
+    font-size: 15px;
+}
+
+.flex-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.icon-center {
+    justify-content: center;
+}
+
+
