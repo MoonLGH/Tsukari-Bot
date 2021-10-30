@@ -14,6 +14,7 @@ interface command {
     other : other,
     filepath : string, 
     description: string,
+    usage:string
 }
 
 interface Opt{

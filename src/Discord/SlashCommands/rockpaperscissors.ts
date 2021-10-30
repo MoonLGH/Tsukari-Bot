@@ -63,6 +63,8 @@ export = {
         })
         collector.on("collect", async (inter) => {
             if (inter.customId === "yes") {
+                await inter.deferUpdate()
+                await interaction.deleteReply()
                 await makebutton(interaction, player, (enemy as GuildMember), inter, confirmation)
             } else if (inter.customId === "no") {
                 interaction.reply({content:"Challange Declined",ephemeral:true})
@@ -137,7 +139,6 @@ async function makebutton(interaction: Interaction, player:  player, enemy: Guil
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function checkwinner(obj: any, inter: ButtonInteraction, player: player) {
     let result = "No one wins"
-    console.log(obj.player1 + obj.player2)
     if (!obj[`player1`] || !obj["player2"]) {
         return null
     }

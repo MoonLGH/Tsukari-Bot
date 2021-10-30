@@ -9,7 +9,7 @@ import config from "../../default"
 export = {
     "name": "banner",
     "usage": `${config.defaultprefix}banner [Id/Member Nick/Mentions]`,
-    "description": "Reply With Pong",
+    "description": "Give user banner",
     "execute": async function (msg: Message, command: string, args: Array < string >) {
         let user
         if(!args[0]){
@@ -32,7 +32,12 @@ export = {
         }
         const banner = await getBanner(user.id,msg)
 
-        const embed = new MessageEmbed().setAuthor(user.username,user.displayAvatarURL()).setImage(banner!)
+        const embed = new MessageEmbed().setAuthor(user.username,user.displayAvatarURL())
+        if(!banner){
+            embed.setDescription("No Banner Found")
+            msg.channel.send({embeds:[embed]})
+        }
+        embed.setImage(banner!)
         msg.channel.send({embeds:[embed]})
     }
 }
@@ -54,12 +59,13 @@ async function getBanner(id:string,msg:Message){
     const banner = jsonData["banner"];
 
     if (!banner)
-        return Promise.resolve(null);
+        return null
 
     const isGif:boolean = banner.startsWith("a_")
 
     if (isGif === true) {
         return `https://cdn.discordapp.com/banners/${id}/${banner}.gif?size=1024`
     }
+
     return `https://cdn.discordapp.com/banners/${id}/${banner}.png?size=1024`
 }

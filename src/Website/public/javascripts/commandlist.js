@@ -3,22 +3,44 @@
 let table = document.getElementById("tablePlaceHolder")
 let query = document.querySelector("#search-input > input")
 let slashParsed = JSON.parse(slash)
-let textParsed = JSON.parse(text)
+let textParsed = JSON.parse(decodeURIComponent(text))
 
 if(type === "slash"){
-    table.innerHTML = "<tr><th>Command</th><th>Description</th></tr>"
+    table.innerHTML = `<thead><tr>
+    <th>Command</th>
+    <th>Description</th>
+    </tr></thead>`
     for(let i = 0; i < slashParsed.length; i++){
         if(slashParsed[i].name.toLowerCase().includes(search.toLowerCase())){
-            table.innerHTML += `<tr><td>${capitalizeFirstLetter(slashParsed[i].name)}</td><td>${slashParsed[i].description}</td></tr>`
+            table.innerHTML += `<tbody><tr>
+            <td data-label="Command">${capitalizeFirstLetter(slashParsed[i].name)}</td>
+            <td data-label="Description">${slashParsed[i].description}</td>
+            </tr></tbody>`
         }
     }
 }else if (type === "text"){
-    table.innerHTML = "<tr><th>Command</th><th>Description</th></tr>"
+    table.innerHTML = `<thead><tr>
+    <th>Usage</th>
+    <th>Description</th>
+    <th>Permission needed</th>
+    <th>Alias</th>
+    <th>Code</th>
+    </tr></thead>`
     for(let i = 0; i < textParsed.length; i++){
         if(textParsed[i].name.toLowerCase().includes(search.toLowerCase()) || textParsed[i].alias.includes(search.toLowerCase())){
-            table.innerHTML += `<tr><td>${capitalizeFirstLetter(textParsed[i].name)}${textParsed[i].alias.length !== 0 ? "/" + capitalizeFirstLetterArray(textParsed[i].alias).join("/") : ""}</td><td>${textParsed[i].description}</td></tr>`
+            table.innerHTML += `<tbody><tr>
+            <td data-label="Usage">${(textParsed[i].usage.replace(textParsed[i].name,capitalizeFirstLetter(textParsed[i].name))).replaceAll("<","&lt;").replaceAll(">","&gt;")}</td>
+            <td data-label="Description">${textParsed[i].description}</td>
+            <td data-label="Permission Needed">${textParsed[i].other.permission.length !== 0 ? textParsed[i].other.permission.join(" & ") : "-"}</td>
+            <td data-label="Alias">${textParsed[i].alias.length !== 0 ? capitalizeFirstLetterArray(textParsed[i].alias).join("/") : "-"}</td>
+            <td data-label="Code"><a class="link" href="${generateCodeLink(textParsed[i])}">Code</a></td>
+            </tr></tbody>`
         }
     }
+}
+
+function generateCodeLink(code){
+    return `https://github.com/MoonLGH/Tsukari-Bot/blob/main/src/Discord/TextCommands/${code.folder}/${code.file}`
 }
 
 // make when enter pressed on query do inputchange()

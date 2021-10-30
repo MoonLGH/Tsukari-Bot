@@ -32,3 +32,13 @@ div.col > div.form-check {
   font-size: 20px;
   border-radius: 10px;
 }
+
+tr > th {
+  border:1px solid black;
+  vertical-align: middle;
+} 
+
+tr > td {
+  border:1px solid black;
+  vertical-align: middle;
+}

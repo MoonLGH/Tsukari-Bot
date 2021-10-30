@@ -5,27 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Commands List</title>
-    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
-    <link rel="stylesheet" href="fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="stylesheets/untitled.css">
-    <link rel="stylesheet" href="stylesheets/commands.css">
+    <%- include("./template/head.ejs",{path:"./",adds:[{href:"./stylesheets/commands.css"}]}) %> 
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
-    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
-        <div class="container"><a class="navbar-brand text-capitalize" href="https://MoonL.me/" style="color: #42dca3;">MoonL</a><a class="navbar-brand text-capitalize" style="color: #42dca3;">|</a><a class="navbar-brand text-capitalize" id="title" href="./" style="color: #42dca3;">Tsukari</a><button data-bs-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-bs-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive" style="color: var(--bs-secondary);">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item nav-link"><a class="nav-link" href="?type=text">Text Commands</a></li>
-                    <li class="nav-item nav-link"><a class="nav-link" href="?type=slash">Slash Commands</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <header class="masthead" style="background-color:grey">
-        <div class="intro-body" style="background: var(--bs-gray-400);color: var(--bs-light);">
+    <%- include("./template/nav.ejs",{li:[{name:"Text Commands",href:"?type=text"},{name:"Slash Commands",href:"?type=slash"}]}) %>
+    <header class="masthead">
+        <div class="intro-body" style="background: var(--bs-dark);color: var(--bs-light);">
             <section style="background: var(--bs-dark);" class="content-section">
                 <div class="input-group" id="search-input"><input type="text" class="bg-light form-control border-0 small" placeholder="Search for ..." value="<%- search %>"/>
                     <button class="btn btn-primary py-0" type="button" onclick="inputchange(this)">
@@ -42,11 +28,22 @@
                 <% if(type === "slash") { %>
                     <h1>Slash Commands</h1>
                 <% } %>
+                <% if(type === "text") { %>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-gray-400">[] means Required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-gray-400"><> means Optional</div>
+                        </div>
+                    </div>
+                <% } %>
                 <div class="table-responsive">
-                    <table class="table" style="color: var(--bs-gray-400);border-top: 1px solid var(--bs-gray-400);margin-top: 3rem !important;border: 1px solid var(--bs-gray-400);width: 90%;margin: auto;" id="tablePlaceHolder">
+                    <table class="table text-dark" style="color: var(--bs-gray-400);border-top: 1px solid black;margin-top: 3rem !important;border: 1px solid black;width: 90%;margin: auto;" id="tablePlaceHolder">
     
                     </table>
                 </div>
+
             </section>
         </div>
     </header>
@@ -59,7 +56,7 @@
     <script src="javascripts/grayscale.js"></script>
     <script>
         let slash = '<%- JSON.stringify(slashes) %>'
-        let text = '<%- JSON.stringify(commands) %>'
+        let text = '<%- encodeURIComponent(JSON.stringify(commands)) %>'
         let search = '<%- search %>'
         let type = '<%- type %>'
 

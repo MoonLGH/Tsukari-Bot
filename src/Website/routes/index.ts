@@ -13,7 +13,7 @@ const router = Express.Router();
 /* GET home page. */
 router.get('/', function(req:Express.Request, res:Express.Response, next?:Express.NextFunction) {
 
-  const commands = `${vars.commands.size} Text Commands`
+  const commands = `${vars.commands.filter(command => (command.folder !== "test" && command.folder !== "owner")).size} Text Commands`
   const slash = `${vars.slashes.size} Slash Commands`
   res.render("index/index",{guildSize:DJS.client.guilds.cache.size,uptime:countsUptime((DJS.client.uptime as number)),commandSize:commands,slashSize:slash,imgsrc:DJS.client.user!.displayAvatarURL({format:"png",dynamic:true})});
 
@@ -32,7 +32,7 @@ router.get('/commands', function(req:Express.Request, res:Express.Response, next
   let type = req.query.type
   const search = req.query.q
   if(!type) type = "text"
-  res.render("index/commands",{type,search,commands,slashes})
+  res.render("index/commands",{type,search,commands:commands.filter(command => (command.folder !== "test" && command.folder !== "owner")),slashes})
 
 });
 export = router

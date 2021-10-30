@@ -3,8 +3,8 @@ import config from "../../default"
 
 export = {
     "name":"delmsg",
-    "usage":`${config.defaultprefix}say "Message Here"`,
-    "description":"Say Something",
+    "usage":`${config.defaultprefix}delmsg [ammout]`,
+    "description":"Delete Message on channel for spesific ammout",
     "guildOnly":true,
     "alias":["purge"],
     "permission":["MANAGE_MESSAGES"],
