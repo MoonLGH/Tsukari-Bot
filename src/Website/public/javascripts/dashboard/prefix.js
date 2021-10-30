@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 function save(){
     let prefixes = [];
     let prefixelement = document.querySelectorAll("#prefix")

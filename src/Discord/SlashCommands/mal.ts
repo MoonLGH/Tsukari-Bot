@@ -9,7 +9,7 @@ export = {
         "description": "Query that you wat to search"
     }],
     interaction: async function (interaction:CommandInteraction) {
-        let toreply = interaction.options.getString("query",true)
+        const toreply = interaction.options.getString("query",true)
         interaction.reply(toreply)
     }
 }

@@ -1,17 +1,18 @@
 import { Client, Message, Guild } from "discord.js";
-require("dotenv").config("../../../");
-const fs = require("fs");
+import dotenv from "dotenv"
+dotenv.config()
+import fs from "fs"
 
 async function addpublic(client: Client,msg:Message) {
   await console.log("Loading Slash Commands");
   const commandFiles = fs
     .readdirSync("./src/Discord/SlashCommands/")
-    .filter((file: any) => file.endsWith(".ts"));
+    .filter((file) => file.endsWith(".ts"));
   
     let sendmsg = await msg.channel.send("Loading...")
-    let commands = []
+    const commands = []
     for (const file of commandFiles) {
-    const command = require(`../../SlashCommands/${file}`);
+    const command = await import(`../../SlashCommands/${file}`)
     await console.log(`Slash Loading: ${file}`);
     
     if(!command.name || !command.description){
@@ -37,11 +38,11 @@ async function addhere(client: Client,msg:Message) {
   await console.log("Loading Slash Commands");
   const commandFiles = fs
     .readdirSync("./src/Discord/SlashCommands/")
-    .filter((file: any) => file.endsWith(".ts"));
+    .filter((file) => file.endsWith(".ts"));
   let sendmsg = await msg.channel.send("Loading...")
-  let commands = []
+  const commands = []
   for (const file of commandFiles) {
-    const command = require(`../../SlashCommands/${file}`);
+    const command = await import(`../../SlashCommands/${file}`)
     await console.log(`Slash Loading: ${file}`);
 
     if(!command.name || !command.description){

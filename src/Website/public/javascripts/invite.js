@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 let arr = []
 let inputs = document.querySelectorAll(".form-check > input")
 document.querySelectorAll(".form-check > input").forEach((ele) =>{
     arr.push({id:ele.id,checked:ele.checked})
 
-    ele.addEventListener("change",(e)=>{
+    ele.addEventListener("change",()=>{
         for(let val of arr){
             if(val.id == ele.id){
                 val.checked = ele.checked
@@ -38,7 +40,7 @@ function genInv(){
 
 function countstart(perms){
     if(!isNaN(perms)){
-        for (var i = 0, len = inputs.length; i < len; i++) {
+        for (let i = 0, len = inputs.length; i < len; i++) {
             let box = inputs[i]
             
             arr[i].checked = (perms & Number(box.id)) != 0

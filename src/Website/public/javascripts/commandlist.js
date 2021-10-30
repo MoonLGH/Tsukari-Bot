@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 let table = document.getElementById("tablePlaceHolder")
 let query = document.querySelector("#search-input > input")
 let slashParsed = JSON.parse(slash)
@@ -41,7 +43,7 @@ function capitalizeFirstLetter(string) {
 }
 
 function capitalizeFirstLetterArray(arr) {
-   for (var i = 0; i < arr.length; i++) {
+   for (let i = 0; i < arr.length; i++) {
        arr[i] = capitalizeFirstLetter(arr[i])
    }
     return arr

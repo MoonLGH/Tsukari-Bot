@@ -9,8 +9,10 @@ export async function setup(client: Client) {
 		
 		const event = await import(`../../events/${file}`);
 		if (event.once) {
+		// eslint-disable-next-line
 			client.once(event.name, (...args: any) => event.execute(...args, client));
 		} else {
+		// eslint-disable-next-line
 			client.on(event.name, (...args: any) => event.execute(...args, client));
 		}
 	}

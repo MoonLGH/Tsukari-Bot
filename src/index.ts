@@ -1,14 +1,12 @@
+// import modules
 import Djs from "./Discord/index"
 import DB from "./MongoDB/db"
 import Website from "./Website/app"
-
 import env from "dotenv"
+
+// dotenv configuration
 env.config()
 
-
-async function setup() {
-    DB.connect(process.env.MongoDB_URL!)
-    Djs.login(process.env.Token!)
-    Website.start()
-}
-setup()
+DB.connect(process.env.MongoDB_URL!)
+Djs.login(process.env.Token!)
+Website.start()

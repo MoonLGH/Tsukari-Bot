@@ -1,5 +1,6 @@
 const dprefix = "Tsu!"
-module.exports ={
+
+export = {
     defaultprefix : dprefix,
     defaultprefixes: ["Tsu+","Tsu-",dprefix],
     botconsole:"831195323820408902",

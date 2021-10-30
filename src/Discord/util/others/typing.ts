@@ -1,4 +1,5 @@
-import {Permissions} from "discord.js"
+import {Permissions,Interaction,Client} from "discord.js"
+
 interface other {
     permission : Array<Permissions>|Array<string>|null,
     guildOnly : boolean,
@@ -12,7 +13,7 @@ interface command {
     alias: Array<string>,
     other : other,
     filepath : string, 
-    description: string
+    description: string,
 }
 
 interface Opt{
@@ -35,7 +36,7 @@ interface slash {
     filepath : string,
     options:Array<Opt>,
     description:string,
-    interaction:Function
+    interaction:(Interaction:Interaction,Client:Client) => void
 }
 
 export {

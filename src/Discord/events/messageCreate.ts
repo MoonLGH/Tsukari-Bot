@@ -5,7 +5,8 @@ import {
     handler
 } from '../util/handler/CommandHandler';
 import db from '../../MongoDB/db'
-const config = require("../default.js")
+import config from "../default"
+
 type prefix = string|undefined 
 export = {
     name: 'messageCreate',
@@ -19,7 +20,7 @@ export = {
             }
         }
         if(!prefix && msg.guild) {
-            let guild = await db.fetchGuild(msg.guild.id)
+            const guild = await db.fetchGuild(msg.guild.id)
             if(!guild.prefix || guild.prefix.length === 0) {
                 guild.prefix = config.defaultprefixes
                 await guild.save().then(db => console.log(db))
@@ -36,7 +37,7 @@ export = {
             const command = args.shift() !.toLowerCase()
             handler(msg, command, args, (prefix as string))
         } catch (err) {
-            require("../util/others/error.ts").execute(err, msg)
+            (await import("../util/others/error")).execute((err as Error), msg)
         }
     },
 };

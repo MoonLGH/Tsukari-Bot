@@ -1,5 +1,5 @@
 import { Client, TextChannel } from 'discord.js'
-const config = require("../default.js")
+import config from "../default"
 import {commands,slashes} from "../util/others/globalVar"
 import {loadSlashCommand, loadTextCommand} from "../util/others/handleutil"
 async function SetActivity(client:Client){
@@ -29,20 +29,20 @@ export = {
 };
 
 
-async function logToDiscord(m:any,client:Client){
+async function logToDiscord(m:string|object,client:Client){
     (client.channels.cache.get(config.botconsole) as TextChannel)?.send(`Console Log: ${m.toString()}`)
 }
 
 async function loadTextCommands(){
   const text = await loadTextCommand()
 
-  for (let cmd of text){
+  for (const cmd of text){
     commands.set(cmd.name,cmd)
   }
 
   const slash = await loadSlashCommand()
 
-  for (let cmd of slash){
+  for (const cmd of slash){
     slashes.set(cmd.name,cmd)
   }
 }

@@ -1,35 +1,20 @@
 import {
-    ButtonInteraction, CommandInteraction, GuildMember, Message, MessageCollector,MessageEmbed,Collection
+    CommandInteraction,MessageEmbed
 } from 'discord.js'
 export = {
     name: "avatar",
     description: "Show User/Member avatar",
     options: [{
         "name": "target",
-        "type": "STRING",
+        "type": "USER",
         "required": false,
         "description": "Member Nickname/ID"
     }],
     interaction: async function (interaction: CommandInteraction) {
-        let person:any = interaction.options.getString("target")?.replace("<@","").replace("!", "").replace(">","");
-        
-        let Embed = new MessageEmbed()
-        if(!person){
-            person = interaction.user;
-        }else if(isNaN(person)){
-            person = await interaction.guild?.members.fetch({
-                query: person,
-                limit: 1
-            }).then((members:Collection<any,GuildMember>) => members.first()?.user).catch(() => interaction.user)
-            if(!person){
-                person = interaction.user;
-                Embed.setDescription("No Member found with that nickname,So i've give your avatar instead")
-            }
-        }else if(!isNaN(person)){
-            person = await interaction.client.users.fetch(person)
-        }
+        const person = interaction.options.getUser("target",true)
+        const Embed = new MessageEmbed()
 
-        let avatar = person.displayAvatarURL({format: "png", size: 1024});
+        const avatar = person.displayAvatarURL({format: "png", size: 1024});
 
         Embed.setAuthor(person.tag, avatar)
         .setImage(avatar)

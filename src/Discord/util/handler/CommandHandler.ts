@@ -1,11 +1,11 @@
-import { Message } from "discord.js";
+import { Message,PermissionString } from "discord.js";
 import { handleCommand, search, Vars } from "../others/handleutil";
-const def = require("../../default.js")
+import def from "../../default"
 
 async function getCommand(command: string,args: Array<string>) {
    let getcmd = null;
    if (search(command, Vars.forwardable)) {
-      let folder = command;
+      const folder = command;
       command = args.shift()!;
       if(command){
       getcmd = await handleCommand(command, folder);
@@ -15,22 +15,19 @@ async function getCommand(command: string,args: Array<string>) {
 }
 
 export async function handler(msg: Message,command: string,args: Array<string>,prefix: string) {
-   let getcmd: any = await getCommand(command, args);
-   if (!getcmd) {
-      getcmd = await handleCommand(command);
-   }
+   const getcmd = await getCommand(command, args) || await handleCommand(command);
    if (getcmd) {
       if(getcmd.folder === "owner" && msg.author.id !== def.ownerid) return msg.reply("You are not the bot owner, and cant do this type of command")
       if(getcmd.other.guildOnly && msg.channel?.type !== "GUILD_TEXT") return msg.channel.send(`This command can only be used in a Server TextChannel`);
       else if(getcmd.other.DMOnly && msg.channel?.type !== "DM") return msg.channel.send(`This command can only be used in a DM`);
       else {
-         if(getcmd.permission){
-            if(!msg.member?.permissions.has(getcmd.permission)){
+         if(getcmd.other.permission){
+            if(!msg.member?.permissions.has((getcmd.other.permission as PermissionString[]))){
                return msg.reply(`You do not have permission to use this command`);
             }
          }
          try {
-            let cmd = await import(`../../TextCommands/${getcmd.folder}/${getcmd.name}`)
+            const cmd = await import(`../../TextCommands/${getcmd.folder}/${getcmd.name}`)
             cmd.execute(msg,command,args,prefix,getcmd.alias || getcmd.file)
          } catch (err){
             if(err === "DiscordAPIError: Missing Permission"){

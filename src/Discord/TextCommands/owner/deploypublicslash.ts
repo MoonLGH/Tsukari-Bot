@@ -1,13 +1,14 @@
 import {
     Message
 } from "discord.js"
-const D = require("discord.js")
 import {addpublic} from "../../util/others/slash"
+import config from "../../default"
+
 export = {
     "name": "deploypublicslash",
-    "usage": `${require("../../default").defaultprefix}owner deploypublicslash `,
+    "usage": `${config.defaultprefix}owner deploypublicslash `,
     "description": "Deploy Slash Command To Public",
-    "execute": async function (msg: Message, command: String, args: Array < any > , prefix: string) {
+    "execute": async function (msg: Message) {
         await addpublic(msg.client,msg)
     }
 }

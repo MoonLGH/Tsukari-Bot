@@ -1,10 +1,20 @@
-const {
-    MessageActionRow,
-    MessageButton
-} = require('discord.js');
-
 import {
-    ButtonInteraction, CommandInteraction, GuildMember, Message, MessageCollector
+    MessageActionRow,
+    MessageButton,
+    MessageComponentInteraction,
+    ButtonInteraction, CommandInteraction, GuildMember, Message,CollectorFilter,Interaction
+} from 'discord.js'
+interface player {
+    "1": {
+        name: string
+        id: string
+    },
+    "2": {
+        name: string,
+        id: string
+    }
+}
+import {
 } from 'discord.js'
 export = {
     name: "rockpaperscissors",
@@ -40,64 +50,66 @@ export = {
         })
 
         const confirm = await interaction.fetchReply()
-        const filter:any = (interaction: ButtonInteraction) => interaction.user.id === (enemy as GuildMember).id;
-        const collector:any = (confirm as Message).createMessageComponentCollector({
-            filter: filter,
+        const filter = (interaction: ButtonInteraction) => interaction.user.id === (enemy as GuildMember).id;
+        const collector = (confirm as Message).createMessageComponentCollector<"BUTTON">({
+            filter: (filter as CollectorFilter<[MessageComponentInteraction]>),
             time: 15000
         });
 
-        collector.on("collect", async (inter: ButtonInteraction) => {
+        collector.on("end",(collected,reason)=>{
+            if(reason === "time"){
+                interaction.reply({content:"Challange Timed Out",ephemeral:true})
+            }
+        })
+        collector.on("collect", async (inter) => {
             if (inter.customId === "yes") {
-                await inter.deferUpdate()
-                await interaction.deleteReply()
-                interaction.channel!.send(`${(enemy as GuildMember).displayName} Has Accepted.`)
-                makebutton(interaction, player, enemy, inter, confirm)
+                await makebutton(interaction, player, (enemy as GuildMember), inter, confirmation)
             } else if (inter.customId === "no") {
-                await inter.deferUpdate()
-                await interaction.deleteReply()
-                return interaction.channel!.send(`${(enemy as GuildMember).displayName} Has Decline.`)
+                interaction.reply({content:"Challange Declined",ephemeral:true})
             }
         })
     },
 }
 
-async function makebutton(interaction: any, player:  any, enemy: any, inter: ButtonInteraction, confirm: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function makebutton(interaction: Interaction, player:  player, enemy: GuildMember, inter: ButtonInteraction, confirm: MessageActionRow) {
 
     //Buttons
-    let scissorsbtn = new MessageButton()
+    const scissorsbtn = new MessageButton()
         .setCustomId("scissors")
         .setLabel("Scissors")
         .setStyle("PRIMARY")
         .setEmoji("✌️")
-    let rockbtn = new MessageButton()
+    const rockbtn = new MessageButton()
         .setCustomId("rock")
         .setLabel("Rock")
         .setStyle("PRIMARY")
         .setEmoji("🤜")
-    let paperbtn = new MessageButton()
+    const paperbtn = new MessageButton()
         .setCustomId("paper ")
         .setLabel("Paper")
         .setStyle("PRIMARY")
         .setEmoji("✋")
-    let row = new MessageActionRow()
+    const row = new MessageActionRow()
         .addComponents([scissorsbtn], [rockbtn], [paperbtn])
 
-    const main = await interaction.channel.send({
+    const main = await interaction.channel!.send({
         content: `${player["1"].name} And ${player["2"].name}\nPick 1 of this`,
         components: [row]
     })
 
     const filter = (interaction: ButtonInteraction) => interaction.user.id === player["2"].id || interaction.user.id === player["1"].id;
-    let maincollector = main.createMessageComponentCollector({
+    const maincollector = main.createMessageComponentCollector<"BUTTON">({
         filter: filter,
         time: 15000
     })
 
-    let obj: any = {}
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const obj:any = {}
 
     maincollector.on("collect", async (inter: ButtonInteraction) => {
         await inter.deferUpdate()
-        let usernumber: any
+        let usernumber: "1"|"2" = "1"
         if (inter.user.id === player["1"].id) {
             usernumber = "1"
         } else if (inter.user.id === player["2"].id) {
@@ -112,17 +124,18 @@ async function makebutton(interaction: any, player:  any, enemy: any, inter: But
             obj[`player${usernumber}`] = "✋"
         }
 
-        await interaction.channel.send(`${player[usernumber].name} Has Picked`)
+        await interaction.channel!.send(`${player[usernumber].name} Has Picked`)
         const win = await checkwinner(obj, inter, player)
 
         if (win) {
             main.delete()
-            return interaction.channel.send(`${player["1"].name} Picked ${obj.player1}\n${player["2"].name} Picked ${obj.player2} \n${win}`)
+            interaction.channel!.send(`${player["1"].name} Picked ${obj.player1}\n${player["2"].name} Picked ${obj.player2} \n${win}`)
         }
     })
 }
 
-async function checkwinner(obj: any, inter: ButtonInteraction, player: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function checkwinner(obj: any, inter: ButtonInteraction, player: player) {
     let result = "No one wins"
     console.log(obj.player1 + obj.player2)
     if (!obj[`player1`] || !obj["player2"]) {

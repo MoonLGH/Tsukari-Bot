@@ -1,7 +1,5 @@
-const {
-    MessageActionRow,
-    MessageButton
-} = require('discord.js');
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { MessageActionRow, MessageButton, User } from 'discord.js';
 
 import { CommandInteraction,ButtonInteraction, GuildMember, Message } from 'discord.js'
 export = {
@@ -27,12 +25,12 @@ export = {
         })
         
         const confirm = await interaction.fetchReply()
-        const filteryes:any = (interaction:ButtonInteraction) => interaction.customId === 'yes' && interaction.user.id === (enemy as GuildMember).id;
-        const collectoryes = (confirm as Message).createMessageComponentCollector({
+        const filteryes = (interaction:ButtonInteraction) => interaction.customId === 'yes' && interaction.user.id === (enemy as GuildMember).id;
+        const collectoryes = (confirm as Message).createMessageComponentCollector<"BUTTON">({
             filter: filteryes,
             time: 15000
         });
-        collectoryes.on("collect", async (inter:any) => {
+        collectoryes.on("collect", async (inter) => {
             await inter.deferUpdate()
             await interaction.editReply({
                 content: `${(enemy as GuildMember).displayName} Has Accepted, Lets Play The Game!`,
@@ -41,12 +39,12 @@ export = {
             start(inter, interaction, confirm, enemy)
         })
 
-        const filterno:any = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === (enemy as GuildMember).id;
-        const collectorno = (confirm as Message).createMessageComponentCollector({
+        const filterno = (interaction:ButtonInteraction) => interaction.customId === 'no' && interaction.user.id === (enemy as GuildMember).id;
+        const collectorno = (confirm as Message).createMessageComponentCollector<"BUTTON">({
             filter: filterno,
             time: 15000
         });
-        collectorno.on("collect", async (inter:any) => {
+        collectorno.on("collect", async (inter) => {
             await inter.deferUpdate()
             await interaction.editReply({
                 content: `${(enemy as GuildMember)?.displayName} Has Declined.`,
@@ -55,9 +53,14 @@ export = {
         })
     },
 }
-
-async function start(inter:ButtonInteraction, interaction:any, confirm:any, enemy:any) {
-    const squares = [{
+interface squere {
+    val:boolean
+    but:MessageButton
+    claimed:string|boolean
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function start(inter:ButtonInteraction, interaction:CommandInteraction, _confirm:any, enemy:any) {
+    const squares:squere[] = [{
         val: false,
         but: new MessageButton().setCustomId('1').setLabel('.').setStyle('PRIMARY'),
         claimed:false
@@ -94,17 +97,20 @@ async function start(inter:ButtonInteraction, interaction:any, confirm:any, enem
         but: new MessageButton().setCustomId('9').setLabel('.').setStyle('PRIMARY'),
         claimed:false
     }]
-    let row = new MessageActionRow()
+    const row = new MessageActionRow()
         .addComponents([squares[0].but, squares[1].but, squares[2].but])
-    let row1 = new MessageActionRow()
+        const row1 = new MessageActionRow()
         .addComponents([squares[3].but, squares[4].but, squares[5].but])
-    let row2 = new MessageActionRow()
+        const row2 = new MessageActionRow()
         .addComponents([squares[6].but, squares[7].but, squares[8].but])
 
-    let users = [interaction.user.id, enemy.id]
-    let player:any = {}
+        const users = [interaction.user.id, enemy.id]
+        const player = {
+            x: User,
+            o: User
+        }
 
-    let random = getfirst(users)
+        const random = getfirst(users)
 
     player.x = random
     users.forEach(user => {
@@ -112,20 +118,20 @@ async function start(inter:ButtonInteraction, interaction:any, confirm:any, enem
         player.o = user
     })
 
-    let now:any = "x"
+    const now:"x"|"o" = "x"
     await interaction.editReply({
         content: `GAME STARTED\n<@${random}> Start first As ${now}`,
         components: [row, row1, row2]
     });
-    let game:any = await interaction.fetchReply()
+    const game = await interaction.fetchReply()
     const filter = (interaction:ButtonInteraction) => interaction.user.id === random;
-    const collector = game.createMessageComponentCollector({
+    const collector = (game as Message).createMessageComponentCollector<"BUTTON">({
         filter: filter,
         time: 15000
     });
     collector.on("collect", async (inter:ButtonInteraction) => {
         collector.stop()
-        let clicked = Number(inter.customId) - 1
+        const clicked = Number(inter.customId) - 1
         await inter.deferUpdate()
         squares[clicked].claimed = now
         squares[clicked].but = squares[clicked].but.setDisabled(true)
@@ -136,12 +142,12 @@ async function start(inter:ButtonInteraction, interaction:any, confirm:any, enem
 
 }
 
-async function next(interaction:any, inter:ButtonInteraction, now:string, squares:any, users:any, player:any,game:any) {
-    let row = new MessageActionRow()
+async function next(interaction:any, _inter:ButtonInteraction, now:string, squares:any, users:any, player:any,game:any) {
+    const row = new MessageActionRow()
         .addComponents([squares[0].but, squares[1].but, squares[2].but])
-    let row1 = new MessageActionRow()
+        const row1 = new MessageActionRow()
         .addComponents([squares[3].but, squares[4].but, squares[5].but])
-    let row2 = new MessageActionRow()
+        const row2 = new MessageActionRow()
         .addComponents([squares[6].but, squares[7].but, squares[8].but])
 
     let curret:any
@@ -166,14 +172,14 @@ async function next(interaction:any, inter:ButtonInteraction, now:string, square
     });
     collector.on("collect", async (inter:any) => {
         collector.stop()
-        let clicked = inter.customId - 1
+        const clicked = inter.customId - 1
         squares[clicked].claimed = now
         await inter.deferUpdate()
         squares[clicked].but = squares[clicked].but.setDisabled(true)
         squares[clicked].but = squares[clicked].but.setLabel(now)
         const winner = await calculateWinner(squares) 
         if(winner){
-            const userwin = player[winner]
+            const userwin = player[(winner as string)]
             interaction.channel.send(`<@${userwin}> Wins As ${winner}`)
             return interaction.deleteReply()
         }
@@ -184,13 +190,13 @@ async function next(interaction:any, inter:ButtonInteraction, now:string, square
     })
 }
 
-function getfirst(users:Array<any>):string {
+function getfirst(users:Array<any>) {
     return users[Math.floor(Math.random() * users.length)]
 }
 
 
 
-function calculateWinner(squares:Array<any>) {
+function calculateWinner(squares:squere[]) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],

@@ -1,14 +1,14 @@
-const fs = require("fs")
 import { CommandInteraction } from "discord.js"
 import {commands, slashes} from "./globalVar"
 import {slash as slashInterface} from "./typing"
+import fs from "fs"
 
-let Vars = {
+const Vars = {
     nofolder: ["slash", "owner"],
     forwardable: ["owner"]
 }
 
-async function handleCommand(command: any, folder? : string) {
+async function handleCommand(command:string , folder? : string) {
     let cmd
     if (folder) {
         cmd = await getCommand(command, folder)
@@ -18,8 +18,8 @@ async function handleCommand(command: any, folder? : string) {
     return cmd
 }
 
-function search(item: String, arr: Array < String > ) {
-    for (var i = 0; i < arr.length; i++) {
+function search(item: string, arr: string[] ) {
+    for (let i = 0; i < arr.length; i++) {
         if (arr[i] === item) {
             return true;
         }
@@ -30,9 +30,9 @@ function search(item: String, arr: Array < String > ) {
 async function loadSlashCommand() {
     const commandFiles = fs
         .readdirSync("./src/Discord/SlashCommands")
-        .filter((file: any) => file.endsWith(".ts"));
+        .filter((file:string) => file.endsWith(".ts"));
 
-    let arr:Array<slashInterface> = []
+    const arr:Array<slashInterface> = []
     for (const file of commandFiles) {
         const command = await import(`../../SlashCommands/${file}`);
 
@@ -51,13 +51,13 @@ async function loadSlashCommand() {
 async function loadTextCommand() {
     const commandFiles = fs.readdirSync('./src/Discord/TextCommands', {
         withFileTypes: true
-    }).filter((dirent: any) => dirent.isDirectory()).map((dirent: any) => dirent.name)
+    }).filter((dirent) => dirent.isDirectory()).map((dirent) => dirent.name)
 
-    let arr = []
+    const arr = []
     for (const folder of commandFiles) {
-        for (const file of fs.readdirSync('./src/Discord/TextCommands/' + folder).filter((file: any) => file.endsWith('.ts'))) {
+        for (const file of fs.readdirSync('./src/Discord/TextCommands/' + folder).filter((file) => file.endsWith('.ts'))) {
             const cmd = await import(`../../TextCommands/${folder}/${file}`)
-            let other = {
+            const other = {
                 permission : cmd.permission || [],
                 guildOnly : cmd.guildOnly || false,
                 DMOnly : cmd.DMOnly || false
@@ -92,7 +92,7 @@ async function getCommand(command:string,folder?:string){
 }
 
 async function getSlash(interaction:CommandInteraction){
-    let cmd = slashes.find(s => s.name === interaction.commandName)
+    const cmd = slashes.find(s => s.name === interaction.commandName)
 
     if(cmd) return cmd
 

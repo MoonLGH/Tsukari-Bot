@@ -1,9 +1,10 @@
 import { Message } from "discord.js"
+import config from "../../default"
 export = {
     "name":"test",
-    "usage":`${require("../../default").defaultprefix}test`,
+    "usage":`${config.defaultprefix}test`,
     "description":"Reply With Testt",
-    "execute":async function(msg:Message, command:String, args:Array<any>, prefix:string){
+    "execute":async function(msg:Message){
         msg.reply("Testt")
     }
 }

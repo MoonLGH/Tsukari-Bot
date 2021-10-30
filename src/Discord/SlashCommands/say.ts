@@ -9,7 +9,7 @@ export = {
         "description": "What Do You Want To Echo"
     }],
     interaction: async function (interaction:CommandInteraction) {
-        let toreply = interaction.options.getString("tosay",true)
+        const toreply = interaction.options.getString("tosay",true)
         interaction.reply(toreply)
     }
 }

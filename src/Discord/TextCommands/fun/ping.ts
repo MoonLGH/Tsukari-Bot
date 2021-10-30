@@ -1,7 +1,9 @@
 import { Message } from "discord.js"
+import config from "../../default"
+
 export = {
     "name":"ping",
-    "usage":`${require("../../default").defaultprefix}ping`,
+    "usage":`${config.defaultprefix}ping`,
     "description":"Reply With Pong",
     "alias":["pong"],
     "execute":async function(msg:Message, command:string, args:Array<string>, prefix:string,alias:string){

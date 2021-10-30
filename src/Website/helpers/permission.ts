@@ -1,9 +1,9 @@
-import { Permissions,PermissionFlags, PermissionString } from "discord.js"
+import { Permissions, PermissionString } from "discord.js"
 
 
 export function makeArrayOfPermission(){
-    let arr = []
-    for(let perm in Permissions.FLAGS){
+    const arr = []
+    for(const perm in Permissions.FLAGS){
         let temppermm
         if(perm === "ADMINISTRATOR") {
             temppermm = "ADMINISTRATOR (recomended)"

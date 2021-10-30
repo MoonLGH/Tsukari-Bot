@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as Express from "express"
 import DJS from "../../Discord/index"
 import * as vars from "../../Discord/util/others/globalVar"
@@ -7,18 +8,18 @@ import {makeArrayOfPermission} from "../helpers/permission"
 import env from "dotenv"
 env.config()
 
-var router = Express.Router();
+const router = Express.Router();
 
 /* GET home page. */
-router.get('/', function(req:Express.Request, res:Express.Response, next?:Function) {
+router.get('/', function(req:Express.Request, res:Express.Response, next?:Express.NextFunction) {
 
-  let commands = `${vars.commands.size} Text Commands`
-  let slash = `${vars.slashes.size} Slash Commands`
+  const commands = `${vars.commands.size} Text Commands`
+  const slash = `${vars.slashes.size} Slash Commands`
   res.render("index/index",{guildSize:DJS.client.guilds.cache.size,uptime:countsUptime((DJS.client.uptime as number)),commandSize:commands,slashSize:slash,imgsrc:DJS.client.user!.displayAvatarURL({format:"png",dynamic:true})});
 
 });
 
-router.get('/invite', function(req:Express.Request, res:Express.Response, next?:Function) {
+router.get('/invite', function(req:Express.Request, res:Express.Response, next?:Express.NextFunction) {
 
   res.render("index/invite",{Permissions:makeArrayOfPermission(),imgsrc:DJS.client.user!.displayAvatarURL({format:"png",dynamic:true}),perms:req.query.perms||null,guildID:req.query.guildID||null});
 
@@ -26,10 +27,10 @@ router.get('/invite', function(req:Express.Request, res:Express.Response, next?:
 
 // redirect all http requests to https
 
-router.get('/commands', function(req:Express.Request, res:Express.Response, next?:Function) {
+router.get('/commands', function(req:Express.Request, res:Express.Response, next?:Express.NextFunction) {
 
   let type = req.query.type
-  let search = req.query.q
+  const search = req.query.q
   if(!type) type = "text"
   res.render("index/commands",{type,search,commands,slashes})
 

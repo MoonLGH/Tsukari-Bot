@@ -5,11 +5,12 @@ import {
     GuildMember,
     Message, MessageEmbed
 } from "discord.js"
+import config from "../../default"
 export = {
     "name": "banner",
-    "usage": `${require("../../default").defaultprefix}banner [Id/Member Nick/Mentions]`,
+    "usage": `${config.defaultprefix}banner [Id/Member Nick/Mentions]`,
     "description": "Reply With Pong",
-    "execute": async function (msg: Message, command: string, args: Array < string > , prefix: string) {
+    "execute": async function (msg: Message, command: string, args: Array < string >) {
         let user
         if(!args[0]){
             user = msg.author
@@ -36,8 +37,8 @@ export = {
     }
 }
 
-async function getBanner(id:String,msg:Message){
-    let response = await fetch(`https://discord.com/api/v8/users/${id}`, {
+async function getBanner(id:string,msg:Message){
+    const response = await fetch(`https://discord.com/api/v8/users/${id}`, {
         method: 'GET',
         headers: {
             Authorization: `Bot ${msg.client.token}`
@@ -55,7 +56,7 @@ async function getBanner(id:String,msg:Message){
     if (!banner)
         return Promise.resolve(null);
 
-    const isGif: Boolean = banner.startsWith("a_")
+    const isGif:boolean = banner.startsWith("a_")
 
     if (isGif === true) {
         return `https://cdn.discordapp.com/banners/${id}/${banner}.gif?size=1024`

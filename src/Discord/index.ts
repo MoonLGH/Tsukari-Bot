@@ -1,12 +1,12 @@
 // Making Variable
-const config = require("./default.js")
 import D from "discord.js"
-
-const client = new D.Client({intents: config.intents,partials:config.partials})
+import config from "./default"
+import { setup } from "./util/handler/EventHandler"
+const client = new D.Client({intents: (config.intents as D.IntentsString[]),partials:(config.partials as D.PartialTypes[])})
 
 function login(Token:string){
     client.login(Token)
-    require("./util/handler/EventHandler.ts").setup(client)
+    setup(client)
 }
 
 export default{
