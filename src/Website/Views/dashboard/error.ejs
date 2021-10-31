@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Tsukari Dashboard - Error</title>
-    <%- include("./templates/head",{path:"../"}) %>
+    <%- include("./templates/head") %>
 </head>
 <body>
     <%- include("./templates/navbar",{li:[{href:"../",name:"home"}]}) %>
@@ -11,6 +11,6 @@
         <h1>Message = <%= Message %></h1>
         <a class="btn btn-primary" href="/dashboard">Dashboard main menu</a>
     </section>
-    <%- include("./templates/scripts",{path:"../"}) %>
+    <%- include("./templates/scripts") %>
 </body>
 </html>

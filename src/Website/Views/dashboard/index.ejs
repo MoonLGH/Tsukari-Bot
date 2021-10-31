@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Tsukari Dashboard</title>
-    <%- include("./templates/head",{path:""}) %>
-    <link rel="stylesheet" href="stylesheets/dashboard.css">
+    <%- include("./templates/head") %>
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
 </head>
 <body>
     <%- include("./templates/navbar",{li:[{href:"./",name:"home"}]}) %>
@@ -44,9 +44,9 @@
 
                                         <div class="text-dark fw-bold h5 mb-0">
                                         <% if (guild.hasTsukari) { %>
-                                            <a class="btn btn-primary text-dark fw-bold h5 mb-0" href="dashboard/guild/<%=guild.id%>/">Settings</a>
+                                            <a class="btn btn-primary text-dark fw-bold h5 mb-0" href="/dashboard/guild/<%=guild.id%>/">Settings</a>
                                         <% } else {%>
-                                            <a class="btn btn-dark text-gray-400 fw-bold h5 mb-0" href="../invite?guildID=<%=guild.id%>/")">Invite</a>
+                                            <a class="btn btn-dark text-gray-400 fw-bold h5 mb-0" href="/invite?guildID=<%=guild.id%>/")">Invite</a>
                                         <% }%>
                                         </div>
                                     </div>
@@ -60,10 +60,8 @@
         </div>
     </section>
 
-    <%- include("./templates/scripts",{path:""}) %>
+    <%- include("./templates/scripts") %>
 	<script>
-        let accessToken = '<%- accessToken %>'
-        let tokenType = '<%- tokenType %>'
         let status = '<%- status %>'
 	</script>
 </body>

@@ -2,9 +2,9 @@
 <html>
 <head>
 	<title>Tsukari Dashboard - Prefix</title>
-    <%- include("./templates/head",{path:"../../../../"}) %>
-    <link rel="stylesheet" href="../../../../stylesheets/dashboard.css">
-    <link rel="stylesheet" href="../../../../stylesheets/grid.css">
+    <%- include("./templates/head") %>
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <link rel="stylesheet" href="/stylesheets/grid.css">
 </head>
 <body style="background-color: var(--bs-gray-400);">
     <%- include("./templates/navbar",{li:[{href:"./",name:"home"},{href:"",name:"prefix"}]}) %>
@@ -57,7 +57,7 @@
                 </div>
             </div>
     </section>
-    <script src="../../../../javascripts/dashboard/prefix.js"></script>
-    <%- include("./templates/scripts",{path:"../../../../"}) %>
+    <script src="/javascripts/dashboard/prefix.js"></script>
+    <%- include("./templates/scripts") %>
 </body>
 </html>

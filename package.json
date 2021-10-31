@@ -1,6 +1,6 @@
 {
   "name": "tsukaribot",
-  "version": "3.0.0 ALPHA",
+  "version": "3.1.0",
   "description": "Tsukari Discord Bot, General Purposes Bot. Created Using Discord.js",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,10 @@
     "dev": "nodemon",
     "start": "ts-node src/index.ts",
     "lint": "eslint . --ext .js,.ts",
-    "lint-fix":"eslint . --ext .js,.ts --fix"
+    "lint-fix": "eslint . --ext .js,.ts --fix",
+    "patchver": "npm --no-git-tag-version version patch",
+    "minorver": "npm --no-git-tag-version version minor",
+    "majorver": "npm --no-git-tag-version version major"
   },
   "author": "MoonL",
   "license": "ISC",
