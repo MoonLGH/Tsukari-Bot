@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-function save(){
-    let prefixes = [];
-    let prefixelement = document.querySelectorAll("#prefix")
+function save() {
+  const prefixes = [];
+  const prefixelement = document.querySelectorAll("#prefix");
 
-    for(let prefix of prefixelement){
-        if(prefixes.includes(prefix.value)){
-            return;
-        }
-        prefixes.push(prefix.value);
+  for (const prefix of prefixelement) {
+    if (prefixes.includes(prefix.value)) {
+      return;
     }
+    prefixes.push(prefix.value);
+  }
 
-    window.open(`?prefixes=${encodeURIComponent(JSON.stringify(prefixes))}`)
+  window.open(`?prefixes=${encodeURIComponent(JSON.stringify(prefixes))}`);
 }
 
-let list = document.getElementById('prefix-list');
-function addprefix(){
-    list.innerHTML += `
+const list = document.getElementById("prefix-list");
+function addprefix() {
+  list.innerHTML += `
     <div class="container" style="border: 3px solid var(--bs-dark); border-radius: 15px;">
     <div class="row"style="margin-top: 10px;">
             <div class="col-md-12">
@@ -28,9 +28,9 @@ function addprefix(){
             </div>
     </div>
 </div>
-`
+`;
 }
 
-function delprefix(prefix){
-    prefix.parentNode.parentNode.parentNode.remove();
+function delprefix(prefix) {
+  prefix.parentNode.parentNode.parentNode.remove();
 }

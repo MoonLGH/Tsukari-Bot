@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Tsukari Dashboard</title>
-    <%- include("./templates/head") %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tsukari - つかり</title>
+    <%- include("./templates/head.ejs") %>
     <link rel="stylesheet" href="/stylesheets/dashboard.css">
 </head>
-<body>
-    <%- include("./templates/navbar",{li:[{href:"./",name:"home"}]}) %>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
+    <%- include("./templates/navbar",{li:[{href:"./",name:"home"},{href:"dashboard/logout",name:"Log Out"}]}) %>
+
     <section class="text-center content-section" id="faq" style="background: var(--bs-gray-400);">
         <div class="container">
             <div class="row" style="color: var(--bs-dark);">
@@ -60,9 +65,15 @@
         </div>
     </section>
 
+    <footer>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;MoonL 2021</p>
+        </div>
+    </footer>
     <%- include("./templates/scripts") %>
 	<script>
         let status = '<%- status %>'
 	</script>
 </body>
+
 </html>

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Tsukari Dashboard - Login</title>
-    <%- include("./templates/head") %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tsukari - Dashboard Login</title>
+    <%- include("./templates/head.ejs") %>
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
 </head>
+
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
     <%- include("./templates/navbar",{li:[{href:"../",name:"home"}]}) %>
+
     <header class="masthead" style="background-color: var(--bs-gray-400)">
         <div class="intro-body" style="color: var(--bs-light);">
             <div class="container">
@@ -19,6 +25,16 @@
         </div>
     </header>
 
+
+    <footer>
+        <div class="container text-center">
+            <p>Copyright ©&nbsp;MoonL 2021</p>
+        </div>
+    </footer>
     <%- include("./templates/scripts") %>
+	<script>
+        let status = '<%- status %>'
+	</script>
 </body>
+
 </html>

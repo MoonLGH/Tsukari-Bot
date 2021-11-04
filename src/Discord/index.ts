@@ -1,15 +1,26 @@
 // Making Variable
-import D from "discord.js"
-import config from "./default"
-import { setup } from "./util/handler/EventHandler"
-const client = new D.Client({intents: (config.intents as D.IntentsString[]),partials:(config.partials as D.PartialTypes[])})
+import D from "discord.js";
+import config from "./default";
+import {setup} from "./util/handler/EventHandler";
 
-function login(Token:string){
-    client.login(Token)
-    setup(client)
+// reassign client
+class reassignedClient extends D.Client {
+  constructor() {
+    super({
+      intents: (config.intents as D.IntentsString[]),
+      partials: (config.partials as D.PartialTypes[]),
+    });
+  }
+
+  start(token:string) {
+    this.login(token);
+    setup(this);
+  }
 }
 
-export default{
-    login,
-    client
-}
+// ClientPart
+const client = new reassignedClient();
+
+export default {
+  client,
+};

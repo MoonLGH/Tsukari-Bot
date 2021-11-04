@@ -7,11 +7,12 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "google"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": ["../tsconfig.json"],
+        "project": ["tsconfig.json"],
         "ecmaVersion": 6,
         "sourceType": "module"
     },
@@ -20,7 +21,14 @@
     ],
     "rules": {
         "no-var": "error",
-        "@typescript-eslint/no-non-null-assertion": "off"
-    },
-    "ignorePatterns": ["*.js"]
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "require-jsdoc":"off",
+        "max-len": "off",
+        "new-cap": "off",
+        "quotes": [
+            "warn",
+            "double"
+        ]
+    }
+    // "ignorePatterns": ["*.js"]
 }

@@ -1,4 +1,4 @@
-import {Permissions,Interaction,Client} from "discord.js"
+import {Permissions, Interaction, Client} from "discord.js";
 
 interface other {
     permission : Array<Permissions>|Array<string>|null,
@@ -12,7 +12,7 @@ interface command {
     folder: string,
     alias: Array<string>,
     other : other,
-    filepath : string, 
+    filepath : string,
     description: string,
     usage:string
 }
@@ -37,11 +37,11 @@ interface slash {
     filepath : string,
     options:Array<Opt>,
     description:string,
-    interaction:(Interaction:Interaction,Client:Client) => void
+    interaction:(Interaction:Interaction, Client:Client) => void
 }
 
 export {
-    command,
-    slash,
-    HelpInterface,
-}
+  command,
+  slash,
+  HelpInterface,
+};

@@ -1,14 +1,13 @@
-import { Permissions, PermissionString } from "discord.js"
+import {Permissions, PermissionString} from "discord.js";
 
 
-export function makeArrayOfPermission(){
-    const arr = []
-    for(const perm in Permissions.FLAGS){
-        let temppermm
-        if(perm === "ADMINISTRATOR") {
-            temppermm = "ADMINISTRATOR (recomended)"
-        }
-        arr.push({name:temppermm || perm, bit:Permissions.FLAGS[(perm as PermissionString)]})
-    }
-    return arr
+export function makeArrayOfPermission() {
+  const arr = [];
+  // eslint-disable-next-line guard-for-in
+  for (let perm in Permissions.FLAGS) {
+    const bitperm = Permissions.FLAGS[(perm as PermissionString)];
+    perm = perm === "ADMINISTRATOR"?"ADMINISTRATOR (recomended)":perm;
+    arr.push({name: perm, bit: bitperm});
+  }
+  return arr;
 }
