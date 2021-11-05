@@ -4,7 +4,7 @@ import config from "./default";
 import {setup} from "./util/handler/EventHandler";
 
 // reassign client
-class reassignedClient extends D.Client {
+class Client extends D.Client {
   constructor() {
     super({
       intents: (config.intents as D.IntentsString[]),
@@ -19,7 +19,7 @@ class reassignedClient extends D.Client {
 }
 
 // ClientPart
-const client = new reassignedClient();
+const client = new Client();
 
 export default {
   client,
