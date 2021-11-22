@@ -2,7 +2,7 @@
 Tsukari is an OpenSource Discord Bot that created with [TS(TypeScript)](https://www.typescriptlang.org/) And [Discord.JS](https://discord.js.org/)
 
 ## How To Get
-> Make Sure you have [Node.JS(v14 to lastest)](https://nodejs.dev) and [git](https://git-scm.com/) installed already
+> Make Sure you have [Node.JS(v16.6.0 to lastest)](https://nodejs.dev) and [git](https://git-scm.com/) installed already
 1.  Create a new project.
 2.  Clone this project (https://github.com/MoonLGH/Tsukari-Bot.git)
 Move to the How To Use Section
