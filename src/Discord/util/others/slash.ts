@@ -4,7 +4,7 @@ dotenv.config();
 import fs from "fs";
 
 async function addpublic(client: Client, msg:Message) {
-  await console.log("Loading Slash Commands");
+  console.log("Loading Slash Commands");
   const commandFiles = fs
       .readdirSync("./src/Discord/SlashCommands/")
       .filter((file) => file.endsWith(".ts"));
@@ -13,7 +13,7 @@ async function addpublic(client: Client, msg:Message) {
   const commands = [];
   for (const file of commandFiles) {
     const command = await import(`../../SlashCommands/${file}`);
-    await console.log(`Slash Loading: ${file}`);
+    console.log(`Slash Loading: ${file}`);
 
     if (!command.name || !command.description) {
       sendmsg = await sendmsg.edit(`${sendmsg.content}\n${file} Failed to load`);
@@ -31,11 +31,11 @@ async function addpublic(client: Client, msg:Message) {
   await client.application?.commands.set(commands);
 
   await msg.channel.send("Loaded All Slash Command to Public");
-  await console.log("Loaded All Slash Commands - Public");
+  console.log("Loaded All Slash Commands - Public");
 }
 
 async function addhere(client: Client, msg:Message) {
-  await console.log("Loading Slash Commands");
+  console.log("Loading Slash Commands");
   const commandFiles = fs
       .readdirSync("./src/Discord/SlashCommands/")
       .filter((file) => file.endsWith(".ts"));
@@ -43,7 +43,7 @@ async function addhere(client: Client, msg:Message) {
   const commands = [];
   for (const file of commandFiles) {
     const command = await import(`../../SlashCommands/${file}`);
-    await console.log(`Slash Loading: ${file}`);
+    console.log(`Slash Loading: ${file}`);
 
     if (!command.name || !command.description) {
       sendmsg = await sendmsg.edit(`${sendmsg.content}\n${file} Failed to load`);
@@ -61,7 +61,7 @@ async function addhere(client: Client, msg:Message) {
   await client.guilds.cache.get((msg.guild as Guild)?.id)?.commands.set(commands);
 
   await msg.channel.send("Loaded All Slash Command to this server");
-  await console.log("Loaded All Slash Commands");
+  console.log("Loaded All Slash Commands");
 }
 
 export {addpublic, addhere};

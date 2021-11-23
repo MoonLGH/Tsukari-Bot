@@ -9,7 +9,7 @@ export = {
     if (interaction.isCommand()) {
       const cmd = await getSlash(interaction);
       if (cmd) {
-        await cmd.interaction(interaction, client);
+        cmd.interaction(interaction, client);
       }
     }
   },

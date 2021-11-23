@@ -28,7 +28,8 @@
         "quotes": [
             "warn",
             "double"
-        ]
+        ],
+        "@typescript-eslint/await-thenable": 2
     }
     // "ignorePatterns": ["*.js"]
 }

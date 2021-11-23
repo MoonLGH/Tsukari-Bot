@@ -3,22 +3,22 @@ import config from "../default";
 import {commands, slashes} from "../util/others/globalVar";
 import {loadSlashCommand, loadTextCommand} from "../util/others/handleutil";
 async function SetActivity(client:Client) {
-  const presence = await client.user?.setActivity(config.defaultStatus, {type: "WATCHING"});
-  await console.log(`Activity Changed To ${presence?.activities[0].type} ${presence?.activities[0].name} \nStatus=${presence?.status}`);
+  const presence = client.user?.setActivity(config.defaultStatus, {type: "WATCHING"});
+  console.log(`Activity Changed To ${presence?.activities[0].type} ${presence?.activities[0].name} \nStatus=${presence?.status}`);
 }
 
 export = {
   name: "ready",
   async execute(client:Client) {
-    await console.log("==========");
-    await console.log("Ready Event");
+    console.log("==========");
+    console.log("Ready Event");
     console.log(`${client.user?.tag} Ready.`);
     // Calling SetActivity Function
     await SetActivity(client);
     await loadTextCommands();
     // Adding slash Command
-    await console.log("End of Ready Event");
-    await console.log("==========");
+    console.log("End of Ready Event");
+    console.log("==========");
 
     const oldLog = console.log;
     console.log = (m) => {
