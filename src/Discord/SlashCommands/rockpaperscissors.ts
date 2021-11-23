@@ -26,7 +26,7 @@ export = {
     "description": "Mention Enemy to Challange!",
   }],
   interaction: async function(interaction: CommandInteraction) {
-    const enemy = await interaction.options.get("enemy")?.member;
+    const enemy = interaction.options.get("enemy")?.member;
     if ((enemy as GuildMember).id === interaction.user.id) {
       return interaction.reply({content: "You Cant Challange Your Self", ephemeral: true});
     } else if ((enemy as GuildMember).user.bot) {

@@ -12,7 +12,7 @@ export = {
     "description": "Mention User that you want to challange",
   }],
   interaction: async function(interaction:CommandInteraction) {
-    const enemy = await interaction.options.get("enemy")?.member;
+    const enemy = interaction.options.get("enemy")?.member;
     if ((enemy as GuildMember).id === interaction.user.id) {
       return interaction.reply({content: "You Cant Challange Your Self", ephemeral: true});
     } else if ((enemy as GuildMember).user.bot) {
@@ -176,7 +176,7 @@ async function next(interaction:any, _inter:ButtonInteraction, now:string, squar
     await inter.deferUpdate();
     squares[clicked].but = squares[clicked].but.setDisabled(true);
     squares[clicked].but = squares[clicked].but.setLabel(now);
-    const winner = await calculateWinner(squares);
+    const winner = calculateWinner(squares);
     if (winner) {
       const userwin = player[(winner as string)];
       interaction.channel.send(`<@${userwin}> Wins As ${winner}`);
