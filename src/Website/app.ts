@@ -13,8 +13,10 @@ import fs from "fs";
 
 env.config();
 const port = process.env.PORTHttp || 8080;
-const privateKey = fs.readFileSync(process.env.PrivateKeySSLPath||"src/Website/sslcert/privatekey.pem", "utf8") || ""
-const certificate = fs.readFileSync(process.env.CertSSLPath||"src/Website/sslcert/cert.pem", "utf8") || ""
+// const privateKey = fs.readFileSync(process.env.PrivateKeySSLPath||"src/Website/sslcert/privatekey.pem", "utf8") || ""
+// const certificate = fs.readFileSync(process.env.CertSSLPath||"src/Website/sslcert/cert.pem", "utf8") || ""
+const privateKey = "";
+const certificate = "";
 const credentials = {key: privateKey, cert: certificate};
 
 const app = express();
